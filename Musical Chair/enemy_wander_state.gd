@@ -12,7 +12,6 @@ func _ready():
 	set_physics_process(false)
 
 func _enter_state() -> void:
-	print("Entering Wander State")
 	set_physics_process(true)
 	
 	# Initialize animation_tree and playback here
@@ -23,10 +22,9 @@ func _enter_state() -> void:
 			playback.travel("Walk")
 
 	if actor.velocity == Vector2.ZERO:
-		actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
+		actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.speed
 
 func _exit_state() -> void:
-	print("Exiting Wander State")
 	set_physics_process(false)
 
 func _physics_process(delta):
@@ -41,7 +39,7 @@ func _physics_process(delta):
 		if playback:
 			playback.travel("Walk")
 	
-	actor.velocity = actor.velocity.move_toward(actor.velocity.normalized() * actor.max_speed, actor.acceleration * delta)
+	actor.velocity = actor.velocity.move_toward(actor.velocity.normalized() * actor.speed, actor.acceleration * delta)
 	var collision = actor.move_and_collide(actor.velocity * delta)
 	if collision:
 		var bounce_velocity = actor.velocity.bounce(collision.get_normal())

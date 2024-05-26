@@ -1,7 +1,7 @@
 class_name Enemy
 extends CharacterBody2D
 
-@export var max_speed = 40.0
+@export var speed = 40.0
 @export var acceleration = 50.0
 @export var knockback_strength = 300.0
 
@@ -25,29 +25,19 @@ func _on_knockback_detection_body_entered(body):
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.call("apply_knockback", knockback_direction * knockback_strength)
 
-func _on_contact_body_exited(body):
-	# No specific logic needed for now when the player exits the enemy body
-	pass
-
 func _on_detection_body_entered(body):
 	if body.is_in_group("Player"):
 		player = body
 		if can_see_target(body):
-			print("Player detected! Switching to chase state.")
 			enemy_wander_state.found_player.emit()
 			exclamation_mark.show()
-		else:
-			print("Player detected but not in line of sight.")
 
 func _on_detection_body_exited(body):
 	if body.is_in_group("Player"):
 		player = null
 		if not can_see_target(body):
-			print("Player lost! Switching to wander state.")
 			enemy_chase_state.lost_player.emit()
 			exclamation_mark.hide()
-		else:
-			print("Player still in line of sight.")
 
 func can_see_target(target: Node2D) -> bool:
 	ray_cast_2d.global_position = global_position
@@ -57,6 +47,5 @@ func can_see_target(target: Node2D) -> bool:
 
 func _physics_process(_delta):
 	if player and not can_see_target(player):
-		print("Player lost! Switching to wander state.")
 		enemy_chase_state.lost_player.emit()
 		player = null

@@ -12,7 +12,6 @@ func _ready() -> void:
 	set_physics_process(false)
 
 func _enter_state() -> void:
-	print("Entering Chase State")
 	set_physics_process(true)
 	
 	# Initialize animation_tree and playback here
@@ -26,7 +25,6 @@ func _enter_state() -> void:
 	actor.exclamation_mark.show()
 
 func _exit_state() -> void:
-	print("Exiting Chase State")
 	set_physics_process(false)
 
 	# Hide the exclamation mark
@@ -38,7 +36,7 @@ func _physics_process(delta) -> void:
 	
 	if player:
 		direction = (player.global_position - actor.global_position).normalized()
-		actor.velocity = actor.velocity.move_toward(direction * actor.max_speed, actor.acceleration * delta)
+		actor.velocity = actor.velocity.move_toward(direction * actor.speed, actor.acceleration * delta)
 	else:
 		# When the player exits the detection area, the actor should switch to wander state
 		emit_signal("lost_player")

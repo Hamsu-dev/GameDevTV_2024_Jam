@@ -1,21 +1,30 @@
 class_name Player
 extends CharacterBody2D
 
-# Onready
 @onready var animation_tree = $AnimationTree
 @onready var playback = animation_tree.get("parameters/playback")
 @onready var sprite_2d = $Sprite2D
+@onready var chair_detection = $ChairDetection
+@onready var label = $Label
 
-# Variables
 @export var speed : float = 70
 
 var direction : Vector2 = Vector2.ZERO
 var knockback : Vector2 = Vector2.ZERO
 var knockbackTween
+var chair_occupied = false
+var near_chair = null
 
-# Functions
+
+func _ready():
+	label.visible = false
+	
+	
 func _physics_process(_delta):
-	move()
+	if chair_occupied:
+		velocity = Vector2.ZERO
+	else:
+		move()
 
 func move():
 	direction = Input.get_vector("left", "right", "up", "down")
@@ -53,3 +62,22 @@ func _hit(knockback_strength : Vector2 = Vector2(0,0), stop_time : float = 0.25)
 
 func apply_knockback(knockback: Vector2):
 	_hit(knockback)
+
+func on_chair_occupied(chair_position: Vector2):
+	# Teleport player to the chair's position
+	global_position = chair_position
+	chair_occupied = true
+	velocity = Vector2.ZERO
+	scale *= 1.5
+	label.show()
+	print("You won!")
+
+func _on_chair_detection_area_entered(area):
+	if area.is_in_group("Chair"):
+		near_chair = area
+		print("Player near a chair")
+
+func _on_chair_detection_area_exited(area):
+	if area.is_in_group("Chair"):
+		near_chair = null
+		print("Player left the chair's vicinity")
