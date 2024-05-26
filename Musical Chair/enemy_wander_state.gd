@@ -10,12 +10,14 @@ func _ready():
 	set_physics_process(false)
 
 func _enter_state() -> void:
+	print("Entering Wander State")
 	set_physics_process(true)
 	animator.play("move")
 	if actor.velocity == Vector2.ZERO:
 		actor.velocity = Vector2.RIGHT.rotated(randf_range(0, TAU)) * actor.max_speed
 
 func _exit_state() -> void:
+	print("Exiting Wander State")
 	set_physics_process(false)
 
 func _physics_process(delta):

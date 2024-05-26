@@ -10,10 +10,12 @@ func _ready() -> void:
 	set_physics_process(false)
 
 func _enter_state() -> void:
+	print("Entering Chase State")
 	set_physics_process(true)
 	animator.play("move")
 
 func _exit_state() -> void:
+	print("Exiting Chase State")
 	set_physics_process(false)
 
 func _physics_process(delta) -> void:
@@ -23,4 +25,7 @@ func _physics_process(delta) -> void:
 	if player:
 		var direction = (player.global_position - actor.global_position).normalized()
 		actor.velocity = actor.velocity.move_toward(direction * actor.max_speed, actor.acceleration * delta)
-		actor.move_and_slide()
+		var collision = actor.move_and_collide(actor.velocity * delta)
+		if collision:
+			var bounce_velocity = actor.velocity.bounce(collision.get_normal())
+			actor.velocity = bounce_velocity
