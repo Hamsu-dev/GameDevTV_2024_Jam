@@ -234,7 +234,9 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ptmpk")
 states/Walk/position = Vector2(681, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dxle1"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wfb2a"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xxewx")]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_dk53n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

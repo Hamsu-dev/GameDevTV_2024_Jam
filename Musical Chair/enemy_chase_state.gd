@@ -3,7 +3,6 @@ extends State
 
 @export var actor: Enemy
 @export var animator: AnimatedSprite2D
-@export var vision_cast: RayCast2D
 
 signal lost_player
 
@@ -20,9 +19,8 @@ func _exit_state() -> void:
 func _physics_process(delta) -> void:
 	animator.scale.x = -sign(actor.velocity.x)
 	if animator.scale.x == 0.0: animator.scale.x = 1.0
-	var direction = Vector2.ZERO.direction_to(actor.get_local_mouse_position())
-	actor.velocity = actor.velocity.move_toward(direction * actor.max_speed, actor.acceleration * delta)
-	actor.move_and_slide()
-	if vision_cast.is_colliding():
-		lost_player.emit()
-		
+	var player = get_tree().get_nodes_in_group("Player")[0]
+	if player:
+		var direction = (player.global_position - actor.global_position).normalized()
+		actor.velocity = actor.velocity.move_toward(direction * actor.max_speed, actor.acceleration * delta)
+		actor.move_and_slide()

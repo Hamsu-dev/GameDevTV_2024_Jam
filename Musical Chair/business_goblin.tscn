@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://0swq8evanvan"]
+[gd_scene load_steps=15 format=3 uid="uid://0swq8evanvan"]
 
 [ext_resource type="Texture2D" uid="uid://dfuxpogk8v43e" path="res://business_gobliman.png" id="1_e8yaw"]
 [ext_resource type="Script" path="res://business_goblin.gd" id="1_hrd8v"]
@@ -65,7 +65,12 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5x7f5"]
+radius = 68.0074
+
 [node name="BusinessGoblin" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_hrd8v")
 acceleration = 100.0
 
@@ -90,18 +95,22 @@ polygon = PackedVector2Array(-3, 0, 0, -3, 3, 0, 0, 3)
 script = ExtResource("4_dbcne")
 state = NodePath("EnemyWanderState")
 
-[node name="EnemyWanderState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
+[node name="EnemyWanderState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator")]
 script = ExtResource("5_wbv3n")
 actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
-vision_cast = NodePath("../../RayCast2D")
 
-[node name="EnemyChaseState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator", "vision_cast")]
+[node name="EnemyChaseState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator")]
 script = ExtResource("6_3aafu")
 actor = NodePath("../..")
 animator = NodePath("../../AnimatedSprite2D")
-vision_cast = NodePath("../../RayCast2D")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0, -4)
-target_position = Vector2(0, 16)
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_5x7f5")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
