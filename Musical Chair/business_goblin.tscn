@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://0swq8evanvan"]
+[gd_scene load_steps=33 format=3 uid="uid://0swq8evanvan"]
 
 [ext_resource type="Script" path="res://business_goblin.gd" id="1_hrd8v"]
 [ext_resource type="Texture2D" uid="uid://ci74731xnwkue" path="res://RACCOONSPRITESHEET.png" id="2_meurs"]
@@ -249,6 +249,9 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tkxbm"]
+radius = 13.0
+
 [node name="BusinessGoblin" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 3
@@ -314,5 +317,14 @@ animation = &"ExclamationMark"
 frame = 1
 frame_progress = 0.942768
 
+[node name="KnockbackDetection" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockbackDetection"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_tkxbm")
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="body_entered" from="KnockbackDetection" to="." method="_on_knockback_detection_body_entered"]

@@ -51,8 +51,5 @@ func _hit(knockback_strength : Vector2 = Vector2(0,0), stop_time : float = 0.25)
 		sprite_2d.modulate = Color(1,0,0,1)
 		knockbackTween.parallel().tween_property(sprite_2d, "modulate", Color(1,1,1,1), stop_time)
 
-func _on_knockback_body_entered(body):
-	if body.is_in_group("Enemy"):
-		var direction = (global_position - body.global_position).normalized()
-		var knockback = direction * body.knockback_force
-		_hit(knockback)
+func apply_knockback(knockback: Vector2):
+	_hit(knockback)

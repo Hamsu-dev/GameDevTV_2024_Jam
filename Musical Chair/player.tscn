@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://crh1uaffk3dmu"]
+[gd_scene load_steps=28 format=3 uid="uid://crh1uaffk3dmu"]
 
 [ext_resource type="Texture2D" uid="uid://dydh21cygtos2" path="res://FOXSPRITESHEET.png" id="1_8wgpy"]
 [ext_resource type="Script" path="res://player.gd" id="1_dk53n"]
@@ -233,9 +233,6 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ptmpk")
 states/Walk/position = Vector2(681, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dxle1"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wfb2a"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xxewx")]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_my71j"]
-size = Vector2(12, 19)
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 collision_mask = 15
@@ -264,13 +261,3 @@ tree_root = SubResource("AnimationNodeStateMachine_k3ke3")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
-
-[node name="KnockbackDetection" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockbackDetection"]
-position = Vector2(0, -9.5)
-shape = SubResource("RectangleShape2D_my71j")
-
-[connection signal="body_entered" from="KnockbackDetection" to="." method="_on_knockback_body_entered"]
