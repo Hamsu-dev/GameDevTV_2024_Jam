@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 @export var max_speed = 40.0
 @export var acceleration = 50.0
+@export var knockback_force : float = 300.0  
 
 @onready var fsm = $FiniteStateMachine as FiniteStateMachine
 @onready var enemy_wander_state = $FiniteStateMachine/EnemyWanderState as EnemyWanderState
@@ -53,3 +54,8 @@ func _physics_process(_delta):
 		print("Player lost! Switching to wander state.")
 		enemy_chase_state.lost_player.emit()
 		player = null
+
+func _hit_player(player: Player):
+	var direction = (player.global_position - global_position).normalized()
+	var knockback = direction * knockback_force  # Apply force in the opposite direction
+	player._hit(knockback)
