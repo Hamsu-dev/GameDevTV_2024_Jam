@@ -2,7 +2,9 @@ class_name EnemyChaseState
 extends State
 
 @export var actor: Enemy
-@export var animator: AnimatedSprite2D
+
+var animation_tree: AnimationTree
+var playback: AnimationNodeStateMachinePlayback
 
 signal lost_player
 
@@ -12,20 +14,47 @@ func _ready() -> void:
 func _enter_state() -> void:
 	print("Entering Chase State")
 	set_physics_process(true)
-	animator.play("move")
+	
+	# Initialize animation_tree and playback here
+	animation_tree = actor.animation_tree
+	if animation_tree:
+		playback = animation_tree.get("parameters/playback")
+		if playback:
+			playback.travel("Walk")
+
+	# Show the exclamation mark
+	actor.exclamation_mark.show()
 
 func _exit_state() -> void:
 	print("Exiting Chase State")
 	set_physics_process(false)
 
+	# Hide the exclamation mark
+	actor.exclamation_mark.hide()
+
 func _physics_process(delta) -> void:
-	animator.scale.x = -sign(actor.velocity.x)
-	if animator.scale.x == 0.0: animator.scale.x = 1.0
-	var player = get_tree().get_nodes_in_group("Player")[0]
+	var player = actor.player
+	var direction = Vector2.ZERO
+	
 	if player:
-		var direction = (player.global_position - actor.global_position).normalized()
+		direction = (player.global_position - actor.global_position).normalized()
 		actor.velocity = actor.velocity.move_toward(direction * actor.max_speed, actor.acceleration * delta)
-		var collision = actor.move_and_collide(actor.velocity * delta)
-		if collision:
-			var bounce_velocity = actor.velocity.bounce(collision.get_normal())
-			actor.velocity = bounce_velocity
+	else:
+		# When the player exits the detection area, the actor should switch to wander state
+		emit_signal("lost_player")
+		return
+	
+	if direction != Vector2.ZERO:
+		if animation_tree:
+			animation_tree.set("parameters/Idle/blend_position", direction)
+			animation_tree.set("parameters/Walk/blend_position", direction)
+			if playback:
+				playback.travel("Walk")
+	else:
+		if playback:
+			playback.travel("Walk")
+
+	var collision = actor.move_and_collide(actor.velocity * delta)
+	if collision:
+		var bounce_velocity = actor.velocity.bounce(collision.get_normal())
+		actor.velocity = bounce_velocity

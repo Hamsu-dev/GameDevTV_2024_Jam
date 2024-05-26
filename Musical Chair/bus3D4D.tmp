@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://0swq8evanvan"]
+[gd_scene load_steps=33 format=3 uid="uid://0swq8evanvan"]
 
 [ext_resource type="Script" path="res://business_goblin.gd" id="1_hrd8v"]
 [ext_resource type="Texture2D" uid="uid://ci74731xnwkue" path="res://RACCOONSPRITESHEET.png" id="2_meurs"]
@@ -6,7 +6,10 @@
 [ext_resource type="Script" path="res://finite_state_machine.gd" id="4_dbcne"]
 [ext_resource type="Script" path="res://enemy_wander_state.gd" id="5_wbv3n"]
 [ext_resource type="Script" path="res://enemy_chase_state.gd" id="6_3aafu"]
-[ext_resource type="Texture2D" uid="uid://dal5ivku4mxhm" path="res://excalimation mark2.png" id="7_0juke"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_362ke"]
+radius = 6.0
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_hkhn2"]
 length = 0.001
@@ -175,6 +178,29 @@ _data = {
 "walk_up": SubResource("Animation_dnhtt")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t0aad"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ch0dk"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fruf"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m4thf"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_bokfs"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_t0aad")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ch0dk")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_0fruf")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_m4thf")
+blend_point_3/pos = Vector2(1, 0)
+blend_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ff4r"]
 animation = &"walk_left"
 
@@ -198,62 +224,38 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_aj8s5")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c8f3p"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dxle1"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bhwmv"]
-states/Start/position = Vector2(393, 94)
-states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ptmpk")
-states/Walk/position = Vector2(626, 94)
-transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_c8f3p")]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wfb2a"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dcla5"]
-radius = 5.0
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xxewx"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bhwmv"]
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_bokfs")
+states/Idle/position = Vector2(360, 100)
+states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ptmpk")
+states/Walk/position = Vector2(681, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dxle1"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wfb2a"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xxewx")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5x7f5"]
 radius = 68.0074
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xd5bd"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tk77"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7b66c"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_38jsq"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_o4ijr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xd5bd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5tk77")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7b66c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_38jsq")
-}],
-"loop": true,
-"name": &"ExclamationMark",
-"speed": 12.0
-}]
 
 [node name="BusinessGoblin" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_hrd8v")
 acceleration = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("2_meurs")
+hframes = 4
+vframes = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("CapsuleShape2D_362ke")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -266,17 +268,8 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_bhwmv")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -12)
-texture = ExtResource("2_meurs")
-hframes = 4
-vframes = 13
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_dcla5")
 
 [node name="ShadowSprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.392157)
@@ -293,9 +286,10 @@ state = NodePath("EnemyWanderState")
 script = ExtResource("5_wbv3n")
 actor = NodePath("../..")
 
-[node name="EnemyChaseState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
+[node name="EnemyChaseState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor", "animator")]
 script = ExtResource("6_3aafu")
 actor = NodePath("../..")
+animator = NodePath("")
 
 [node name="Detection" type="Area2D" parent="."]
 collision_layer = 8
@@ -305,14 +299,6 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_5x7f5")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-
-[node name="ExclamationMark" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -28)
-scale = Vector2(0.425, 0.425)
-sprite_frames = SubResource("SpriteFrames_o4ijr")
-animation = &"ExclamationMark"
-frame = 1
-frame_progress = 0.942768
 
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
