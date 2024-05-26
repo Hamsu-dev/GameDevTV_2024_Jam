@@ -41,7 +41,7 @@ func can_see_target(target: Node2D) -> bool:
 	ray_cast_2d.force_raycast_update()
 	return not ray_cast_2d.is_colliding()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player and not can_see_target(player):
 		print("Player lost! Switching to wander state.")
 		enemy_chase_state.lost_player.emit()
