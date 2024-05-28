@@ -1,5 +1,6 @@
-class_name Enemy
 extends CharacterBody2D
+
+class_name EnemyBase
 
 @export var speed = 40.0
 @export var acceleration = 50.0

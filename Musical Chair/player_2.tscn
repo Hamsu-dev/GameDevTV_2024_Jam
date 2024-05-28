@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=3 uid="uid://cdtlhpp64460w"]
 
 [ext_resource type="Script" path="res://player_2.gd" id="1_0ln1o"]
-[ext_resource type="Texture2D" uid="uid://dydh21cygtos2" path="res://FOXSPRITESHEET.png" id="2_vcx7l"]
+[ext_resource type="Texture2D" uid="uid://c4ar3jus1gh42" path="res://BIRDSPRITESHEET_Blue.png" id="2_81ial"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fctw4"]
 radius = 7.0
@@ -242,7 +242,7 @@ script = ExtResource("1_0ln1o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
-texture = ExtResource("2_vcx7l")
+texture = ExtResource("2_81ial")
 hframes = 4
 vframes = 13
 
