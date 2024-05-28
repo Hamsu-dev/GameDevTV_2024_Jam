@@ -58,6 +58,8 @@ func can_see_target(target: Node2D) -> bool:
 	return not ray_cast_2d.is_colliding()
 
 func _physics_process(_delta):
+	if chair_occupied:
+		return  # Do nothing if chair is occupied
 	if player and not can_see_target(player):
 		enemy_chase_state.lost_player.emit()
 		player = null

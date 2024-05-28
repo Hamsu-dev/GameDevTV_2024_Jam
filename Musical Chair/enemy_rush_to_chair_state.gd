@@ -1,7 +1,7 @@
 class_name EnemyRushToChairState
 extends State
 
-@export var actor: Enemy
+@export var actor: EnemyBase
 
 var target_chair: Node2D = null
 var animation_tree: AnimationTree
@@ -61,7 +61,7 @@ func _physics_process(delta) -> void:
 				playback.travel("Idle")
 
 func get_nearest_available_chair() -> Node2D:
-	var chairs = get_tree().get_root().get_node("Game/Chairs").get_children()
+	var chairs = get_tree().get_root().get_node("Game/Level1/Chairs").get_children()
 	var nearest_chair: Node2D = null
 	var min_distance = INF
 	for chair in chairs:

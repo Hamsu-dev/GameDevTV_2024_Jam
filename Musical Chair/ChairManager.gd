@@ -5,7 +5,7 @@ var occupied_chairs: int = 0
 
 func _ready():
 	# Initialize the total number of chairs
-	total_chairs = get_children().size()
+	total_chairs = get_tree().get_root().get_node("Game/Level1/Chairs").get_children().size()
 	occupied_chairs = 0
 
 func on_chair_occupied(chair: Node2D, occupant: Node2D, animation_tree: AnimationTree):
