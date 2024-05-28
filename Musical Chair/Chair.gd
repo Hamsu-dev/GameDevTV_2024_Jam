@@ -12,7 +12,12 @@ func _on_body_entered(body):
 	if not occupied and body.is_in_group("Player"):
 		occupied = true
 		body.on_chair_occupied(global_position)
-		print("Chair occupied by Player")
+		print("Chair occupied by player")
+	
+	if not occupied and body.is_in_group("Enemy"):
+		occupied = true
+		body.on_chair_occupied(global_position)
+		print("Chair occupied by enemy")
 
 func enable_collision():
 	collision_shape.disabled = false

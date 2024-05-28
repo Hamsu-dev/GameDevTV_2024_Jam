@@ -28,24 +28,25 @@ position = Vector2(169, 93)
 [node name="Enemy" type="Node2D" parent="."]
 position = Vector2(55, 130)
 
-[node name="BusinessGoblin" parent="Enemy" instance=ExtResource("2_5tql4")]
-
 [node name="BusinessGoblin2" parent="Enemy" instance=ExtResource("2_5tql4")]
-position = Vector2(-27, -41)
-
-[node name="BusinessGoblin3" parent="Enemy" instance=ExtResource("2_5tql4")]
-position = Vector2(37, -82)
-
-[node name="BusinessGoblin4" parent="Enemy" instance=ExtResource("2_5tql4")]
-position = Vector2(216, -87)
+position = Vector2(18, -80)
 
 [node name="BusinessGoblin5" parent="Enemy" instance=ExtResource("2_5tql4")]
-position = Vector2(217, 21)
+position = Vector2(215, 9)
+
+[node name="BusinessGoblin4" parent="Enemy" instance=ExtResource("2_5tql4")]
+position = Vector2(215, -80)
 
 [node name="Chairs" type="Node2D" parent="."]
 
 [node name="Chair" parent="Chairs" groups=["Chair"] instance=ExtResource("6_jnr0h")]
 position = Vector2(168, 87)
+
+[node name="Chair2" parent="Chairs" groups=["Chair"] instance=ExtResource("6_jnr0h")]
+position = Vector2(83, 143)
+
+[node name="Chair3" parent="Chairs" groups=["Chair"] instance=ExtResource("6_jnr0h")]
+position = Vector2(106, 37)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_pg386")

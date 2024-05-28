@@ -1,13 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://0swq8evanvan"]
+[gd_scene load_steps=29 format=3 uid="uid://cdtlhpp64460w"]
 
-[ext_resource type="Script" path="res://business_goblin.gd" id="1_hrd8v"]
-[ext_resource type="Texture2D" uid="uid://ci74731xnwkue" path="res://RACCOONSPRITESHEET.png" id="2_meurs"]
-[ext_resource type="Texture2D" uid="uid://c4j8l4dcs4tju" path="res://shadow.png" id="2_y0vw3"]
-[ext_resource type="Script" path="res://finite_state_machine.gd" id="4_dbcne"]
-[ext_resource type="Script" path="res://enemy_wander_state.gd" id="5_wbv3n"]
-[ext_resource type="Script" path="res://enemy_chase_state.gd" id="6_3aafu"]
-[ext_resource type="Texture2D" uid="uid://dal5ivku4mxhm" path="res://excalimation mark2.png" id="7_0juke"]
-[ext_resource type="Script" path="res://enemy_rush_to_chair_state.gd" id="7_as0ke"]
+[ext_resource type="Script" path="res://player_2.gd" id="1_0ln1o"]
+[ext_resource type="Texture2D" uid="uid://dydh21cygtos2" path="res://FOXSPRITESHEET.png" id="2_vcx7l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fctw4"]
+radius = 7.0
 
 [sub_resource type="Animation" id="Animation_hkhn2"]
 length = 0.001
@@ -176,6 +173,29 @@ _data = {
 "walk_up": SubResource("Animation_dnhtt")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t0aad"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ch0dk"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0fruf"]
+animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m4thf"]
+animation = &"idle_left"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_bokfs"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_t0aad")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ch0dk")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_0fruf")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_m4thf")
+blend_point_3/pos = Vector2(1, 0)
+blend_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8ff4r"]
 animation = &"walk_left"
 
@@ -199,65 +219,36 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_aj8s5")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c8f3p"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dxle1"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bhwmv"]
-states/Start/position = Vector2(393, 94)
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wfb2a"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xxewx"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k3ke3"]
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_bokfs")
+states/Idle/position = Vector2(360, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ptmpk")
-states/Walk/position = Vector2(626, 94)
-transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_c8f3p")]
+states/Walk/position = Vector2(681, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dxle1"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wfb2a"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xxewx")]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dcla5"]
-radius = 5.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_v3gqv"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5x7f5"]
-radius = 68.0074
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xd5bd"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tk77"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7b66c"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_38jsq"]
-atlas = ExtResource("7_0juke")
-region = Rect2(0, 96, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_o4ijr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xd5bd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5tk77")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7b66c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_38jsq")
-}],
-"loop": true,
-"name": &"ExclamationMark",
-"speed": 12.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_tkxbm"]
-radius = 13.0
-
-[node name="BusinessGoblin" type="CharacterBody2D" groups=["Enemy"]]
-collision_layer = 4
+[node name="Player2" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
 collision_mask = 15
-script = ExtResource("1_hrd8v")
-acceleration = 100.0
+script = ExtResource("1_0ln1o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("2_vcx7l")
+hframes = 4
+vframes = 13
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_fctw4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -268,68 +259,25 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_sh61x")
 }
-tree_root = SubResource("AnimationNodeStateMachine_bhwmv")
+tree_root = SubResource("AnimationNodeStateMachine_k3ke3")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Walk/blend_position = Vector2(0, 0.00529099)
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Walk/blend_position = Vector2(0, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -12)
-texture = ExtResource("2_meurs")
-hframes = 4
-vframes = 13
+[node name="ChairDetection" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_dcla5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChairDetection"]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_v3gqv")
 
-[node name="ShadowSprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.392157)
-show_behind_parent = true
-position = Vector2(0, 1)
-scale = Vector2(0.8, 1)
-texture = ExtResource("2_y0vw3")
+[node name="Label" type="Label" parent="."]
+offset_left = -36.0
+offset_top = -47.0
+offset_right = 35.0
+offset_bottom = -24.0
+text = "YOU WIN"
 
-[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("state")]
-script = ExtResource("4_dbcne")
-state = NodePath("EnemyWanderState")
-
-[node name="EnemyWanderState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
-script = ExtResource("5_wbv3n")
-actor = NodePath("../..")
-
-[node name="EnemyChaseState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
-script = ExtResource("6_3aafu")
-actor = NodePath("../..")
-
-[node name="EnemyRushToChairState" type="Node" parent="FiniteStateMachine" node_paths=PackedStringArray("actor")]
-script = ExtResource("7_as0ke")
-actor = NodePath("../..")
-
-[node name="Detection" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
-shape = SubResource("CircleShape2D_5x7f5")
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
-
-[node name="ExclamationMark" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -28)
-scale = Vector2(0.425, 0.425)
-sprite_frames = SubResource("SpriteFrames_o4ijr")
-animation = &"ExclamationMark"
-frame = 1
-frame_progress = 0.942768
-
-[node name="KnockbackDetection" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockbackDetection"]
-position = Vector2(0, -13)
-shape = SubResource("CircleShape2D_tkxbm")
-
-[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
-[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_entered" from="KnockbackDetection" to="." method="_on_knockback_detection_body_entered"]
+[connection signal="area_entered" from="ChairDetection" to="." method="_on_chair_detection_area_entered"]
+[connection signal="area_exited" from="ChairDetection" to="." method="_on_chair_detection_area_exited"]

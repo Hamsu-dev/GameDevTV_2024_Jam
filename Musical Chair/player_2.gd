@@ -1,4 +1,4 @@
-class_name Player2
+class_name Player
 extends CharacterBody2D
 
 @onready var animation_tree = $AnimationTree
@@ -27,7 +27,7 @@ func _physics_process(_delta):
 		move()
 
 func move():
-	direction = Input.get_vector("left", "right", "up", "down")
+	direction = Input.get_vector("2Player_left", "2Player_right", "2Player_Up", "2Player_down")
 	
 	if direction != Vector2.ZERO:
 		direction = direction.normalized()
@@ -70,9 +70,6 @@ func on_chair_occupied(chair_position: Vector2):
 	playback.travel("Idle")
 	velocity = Vector2.ZERO
 	scale *= 1.5
-	animation_tree.set("parameters/Idle/blend_position", Vector2(0, 1))
-	animation_tree.set("parameters/Walk/blend_position", Vector2(0, 1))
-	
 	label.show()
 	print("You won!")
 

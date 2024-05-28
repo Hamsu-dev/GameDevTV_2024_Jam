@@ -1,20 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://dmh12rddm42l8"]
 
 [ext_resource type="Script" path="res://Chair.gd" id="1_r0deh"]
-[ext_resource type="Texture2D" uid="uid://cood1wmtiwrll" path="res://part-Slice 3.png" id="2_mau5a"]
+[ext_resource type="Texture2D" uid="uid://brk2xigign8of" path="res://chair_asset.png" id="2_exvsm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_33xto"]
 
 [node name="Chair" type="Area2D"]
 collision_layer = 8
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_r0deh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_33xto")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_mau5a")
+position = Vector2(0, -6)
+texture = ExtResource("2_exvsm")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

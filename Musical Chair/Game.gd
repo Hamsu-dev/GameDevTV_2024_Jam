@@ -6,6 +6,8 @@ extends Node2D
 
 var game_state = "music_playing" # other state is "music_stopped"
 
+signal music_stopped
+
 func _ready():
 	start_music()
 
@@ -24,3 +26,5 @@ func _on_audio_stream_player_2d_finished():
 	for chair in chairs:
 		chair.enable_collision()  # Enable chair collisions
 	print("Music stopped! Find a chair!")
+	
+	music_stopped.emit()
