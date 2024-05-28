@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfux13hjgok6b"]
+
+[ext_resource type="Script" path="res://slow_debuff.gd" id="1_jkt2i"]
+[ext_resource type="Texture2D" uid="uid://b7s1yk8ethnpn" path="res://Asset 33@0.5x.png" id="1_vyvpi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqnmc"]
+size = Vector2(257.143, 257.143)
+
+[node name="SlowDebuff" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_jkt2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("1_vyvpi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.38419e-07)
+scale = Vector2(0.07, 0.07)
+shape = SubResource("RectangleShape2D_hqnmc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cae72cvsbwumh"]
+[gd_scene load_steps=10 format=3 uid="uid://cae72cvsbwumh"]
 
 [ext_resource type="Texture2D" uid="uid://4f53opkqns45" path="res://grass_bass.png" id="1_njj2l"]
 [ext_resource type="Script" path="res://Game.gd" id="1_sofab"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://crh1uaffk3dmu" path="res://player.tscn" id="4_nvw6d"]
 [ext_resource type="PackedScene" uid="uid://dmh12rddm42l8" path="res://chair.tscn" id="6_jnr0h"]
 [ext_resource type="AudioStream" uid="uid://d2ko434uqci12" path="res://Juhani Junkala [Retro Game Music Pack] Title Screen.wav" id="7_pg386"]
+[ext_resource type="PackedScene" uid="uid://bmq3htxf0vqwx" path="res://speed_up.tscn" id="8_6kcy1"]
+[ext_resource type="PackedScene" uid="uid://dfux13hjgok6b" path="res://slow_debuff.tscn" id="9_kkdms"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -61,6 +63,14 @@ stream = ExtResource("7_pg386")
 
 [node name="ChairRandomTimer" type="Timer" parent="Level1"]
 wait_time = 2.0
+
+[node name="PowerUpManager" type="Node" parent="Level1"]
+
+[node name="SpeedBoots" parent="Level1/PowerUpManager" instance=ExtResource("8_6kcy1")]
+position = Vector2(184, 150)
+
+[node name="SlowDebuff" parent="Level1/PowerUpManager" instance=ExtResource("9_kkdms")]
+position = Vector2(152, 26)
 
 [connection signal="finished" from="Level1/AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="timeout" from="Level1/ChairRandomTimer" to="." method="_on_chair_random_timer_timeout"]

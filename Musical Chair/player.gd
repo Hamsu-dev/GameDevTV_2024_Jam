@@ -9,12 +9,17 @@ extends CharacterBody2D
 
 @export var speed : float = 70
 
+# Speed_PowerUp
+var base_speed: float = 100.0
+var speed_boost_active: bool = false
+var slow_debuff_active: bool = false
+
+# Variables
 var direction : Vector2 = Vector2.ZERO
 var knockback : Vector2 = Vector2.ZERO
 var knockbackTween
 var chair_occupied = false
 var near_chair = null
-
 
 func _ready():
 	label.visible = false
@@ -85,3 +90,19 @@ func _on_chair_detection_area_exited(area):
 	if area.is_in_group("Chair"):
 		near_chair = null
 		print("Player left the chair's vicinity")
+
+func apply_speed_boost(duration):
+	if not speed_boost_active:
+		speed_boost_active = true
+		speed *= 2
+		await get_tree().create_timer(duration).timeout
+		speed = base_speed
+		speed_boost_active = false
+
+func apply_slow_debuff(duration, factor):
+	if not slow_debuff_active:
+		slow_debuff_active = true
+		speed *= factor
+		await get_tree().create_timer(duration).timeout
+		speed = base_speed
+		slow_debuff_active = false
