@@ -49,14 +49,14 @@ func _physics_process(delta) -> void:
 				
 		actor.move_and_slide()
 		
-		# Check if the enemy has reached the chairs
+		# Check if the enemy has reached the chair
 		if actor.global_position.distance_to(target_chair.global_position) < 10:
-			ChairManager.on_chair_occupied(target_chair, actor, actor.animation_tree)  # Notify manager about the occupied chair
+			ChairManager.on_chair_occupied_for_enemy(target_chair, actor)  # Notify manager about the occupied chair
 			target_chair.occupied = true
 			actor.chair_occupied = true
 			actor.velocity = Vector2.ZERO
-			set_physics_process(false)  # Stop processing physics for this state
 			print("Enemy occupied the chair!")
+			set_physics_process(false)  # Stop processing physics for this state
 			if playback:
 				playback.travel("Idle")
 

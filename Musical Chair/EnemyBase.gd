@@ -33,7 +33,7 @@ func _on_music_stopped():
 		fsm.change_state(enemy_rush_to_chair_state)
 
 func _on_knockback_detection_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and not chair_occupied:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.call("apply_knockback", knockback_direction * knockback_strength)
 
@@ -63,3 +63,14 @@ func _physics_process(_delta):
 	if player and not can_see_target(player):
 		enemy_chase_state.lost_player.emit()
 		player = null
+
+func on_chair_occupied(chair_position: Vector2):
+	print("ON CHAIR OCCUPIED FUNCTION")
+	global_position = chair_position
+	chair_occupied = true
+	velocity = Vector2.ZERO
+	ray_cast_2d.enabled = false  # Disable raycast
+	set_physics_process(false)  # Stop physics processing
+	collision_shape_2d.disabled = true  # Disable collision shape
+	contact_area.body_entered.disconnect(_on_knockback_detection_body_entered)  # Disable knockback detection
+	print("Enemy should now be stationary and non-interactive")

@@ -45,14 +45,11 @@ layer_0/tile_data = PackedInt32Array(131078, 393217, 2, 65542, 1, 1, 6, 1, 0, 13
 
 [node name="Chairs" type="Node2D" parent="Level1"]
 
-[node name="Chair" parent="Level1/Chairs" groups=["Chair"] instance=ExtResource("6_jnr0h")]
-position = Vector2(168, 87)
+[node name="Chair" parent="Level1/Chairs" instance=ExtResource("6_jnr0h")]
+position = Vector2(149, 85)
 
-[node name="Chair2" parent="Level1/Chairs" groups=["Chair"] instance=ExtResource("6_jnr0h")]
-position = Vector2(189, 86)
-
-[node name="Chair3" parent="Level1/Chairs" groups=["Chair"] instance=ExtResource("6_jnr0h")]
-position = Vector2(145, 86)
+[node name="Chair2" parent="Level1/Chairs" instance=ExtResource("6_jnr0h")]
+position = Vector2(203, 82)
 
 [node name="Player" parent="Level1" instance=ExtResource("4_nvw6d")]
 position = Vector2(169, 93)
@@ -64,9 +61,18 @@ zoom = Vector2(1, 1)
 position = Vector2(55, 130)
 
 [node name="BusinessGoblin" parent="Level1/Enemy" instance=ExtResource("6_jde3h")]
+position = Vector2(-38, -77)
 
 [node name="BusinessGoblin2" parent="Level1/Enemy" instance=ExtResource("6_jde3h")]
-position = Vector2(-18, -73)
+
+[node name="BusinessGoblin3" parent="Level1/Enemy" instance=ExtResource("6_jde3h")]
+position = Vector2(65, 24)
+
+[node name="BusinessGoblin4" parent="Level1/Enemy" instance=ExtResource("6_jde3h")]
+position = Vector2(52, -67)
+
+[node name="BusinessGoblin5" parent="Level1/Enemy" instance=ExtResource("6_jde3h")]
+position = Vector2(129, -104)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Level1"]
 stream = ExtResource("7_pg386")
@@ -93,3 +99,4 @@ offset_bottom = 203.0
 [connection signal="timeout" from="Level1/ChairRandomTimer" to="." method="_on_chair_random_timer_timeout"]
 
 [editable path="Level1/Player"]
+[editable path="Level1/Enemy/BusinessGoblin"]

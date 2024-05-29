@@ -40,7 +40,6 @@ func _on_audio_stream_player_2d_finished():
 		chair.enable_collision()  # Enable chair collisions
 	print("Music stopped! Find a chair!")
 	music_stopped.emit()
-	check_game_over()
 
 func start_randomizing_chairs():
 	chair_timer.start(2.0)  # Randomize every 2 seconds (adjust as needed)
@@ -70,39 +69,3 @@ func is_position_walkable(new_chair_position: Vector2) -> bool:
 	var tile_pos = tilemap.local_to_map(new_chair_position)
 	var tile_id = tilemap.get_cell_source_id(0, tile_pos)
 	return tile_id == ground_tile_id
-
-func on_chair_occupied(chair: Node2D, occupant: Node2D, animation_tree: AnimationTree):
-	if chair.occupied:
-		return  # If the chair is already occupied, do nothing
-	chair.occupied = true
-
-	occupant.global_position = chair.global_position
-	occupant.velocity = Vector2.ZERO
-	occupant.scale *= 1.5
-
-	animation_tree.set("parameters/Idle/blend_position", Vector2(0, 1))
-	animation_tree.set("parameters/Walk/blend_position", Vector2(0, 1))
-
-	occupant.set_physics_process(false)  # Stop the physics process to keep the occupant stationary
-
-	if occupant.is_in_group("Player"):
-		print("Player occupied the chair")
-	elif occupant.is_in_group("Enemy"):
-		occupant.fsm.change_state(null)  # Stop further state transitions
-		var enemy_collision_shape = occupant.get_node("CollisionShape2D")
-		if enemy_collision_shape:
-			enemy_collision_shape.disabled = true  # Disable enemy collision
-		print("Enemy occupied the chair")
-
-	check_game_over()
-
-func check_game_over():
-	var all_chairs_occupied = true
-	for chair in chairs:
-		if not chair.occupied:
-			all_chairs_occupied = false
-			break
-
-	if all_chairs_occupied:
-		print("Player Lost!")
-		player.set_process(false)  # Optionally stop player movement
