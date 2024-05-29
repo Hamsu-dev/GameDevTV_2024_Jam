@@ -5,7 +5,6 @@ extends CharacterBody2D
 @onready var playback = animation_tree.get("parameters/playback")
 @onready var sprite_2d = $Sprite2D
 @onready var chair_detection = $ChairDetection
-@onready var label = $Label
 
 @export var speed : float = 70
 
@@ -21,10 +20,6 @@ var knockbackTween
 var chair_occupied = false
 var near_chair = null
 
-func _ready():
-	label.visible = false
-	
-	
 func _physics_process(_delta):
 	if chair_occupied:
 		velocity = Vector2.ZERO
@@ -77,8 +72,6 @@ func on_chair_occupied(chair_position: Vector2):
 	scale *= 1.5
 	animation_tree.set("parameters/Idle/blend_position", Vector2(0, 1))
 	animation_tree.set("parameters/Walk/blend_position", Vector2(0, 1))
-	
-	label.show()
 	print("You won!")
 
 func _on_chair_detection_area_entered(area):

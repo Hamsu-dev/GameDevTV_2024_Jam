@@ -272,12 +272,8 @@ collision_mask = 8
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_v3gqv")
 
-[node name="Label" type="Label" parent="."]
-offset_left = -36.0
-offset_top = -47.0
-offset_right = 35.0
-offset_bottom = -24.0
-text = "YOU WIN"
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
 [connection signal="area_entered" from="ChairDetection" to="." method="_on_chair_detection_area_entered"]
 [connection signal="area_exited" from="ChairDetection" to="." method="_on_chair_detection_area_exited"]
