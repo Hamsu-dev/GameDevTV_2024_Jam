@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://crh1uaffk3dmu"]
+[gd_scene load_steps=30 format=3 uid="uid://crh1uaffk3dmu"]
 
 [ext_resource type="Texture2D" uid="uid://dydh21cygtos2" path="res://FOXSPRITESHEET.png" id="1_8wgpy"]
 [ext_resource type="Script" path="res://player.gd" id="1_dk53n"]
+[ext_resource type="Script" path="res://PlayerCamera.gd" id="3_o4w5r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fctw4"]
 radius = 7.0
@@ -274,6 +275,7 @@ shape = SubResource("CircleShape2D_v3gqv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+script = ExtResource("3_o4w5r")
 
 [connection signal="area_entered" from="ChairDetection" to="." method="_on_chair_detection_area_entered"]
 [connection signal="area_exited" from="ChairDetection" to="." method="_on_chair_detection_area_exited"]

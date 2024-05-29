@@ -13,7 +13,8 @@ var play_area_position: Vector2
 var game_state = "music_playing" # other state is "music_stopped"
 
 # Define the wall tile ID
-var wall_tile_id = 0
+var wall_tile_id = 2
+var ground_tile_id = 1
 
 signal music_stopped
 
@@ -68,7 +69,7 @@ func randomize_chair_positions():
 func is_position_walkable(new_chair_position: Vector2) -> bool:
 	var tile_pos = tilemap.local_to_map(new_chair_position)
 	var tile_id = tilemap.get_cell_source_id(0, tile_pos)
-	return tile_id != wall_tile_id
+	return tile_id == ground_tile_id
 
 func on_chair_occupied(chair: Node2D, occupant: Node2D, animation_tree: AnimationTree):
 	if chair.occupied:
