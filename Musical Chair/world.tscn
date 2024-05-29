@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cae72cvsbwumh"]
+[gd_scene load_steps=12 format=3 uid="uid://cae72cvsbwumh"]
 
 [ext_resource type="Texture2D" uid="uid://4f53opkqns45" path="res://grass_bass.png" id="1_njj2l"]
 [ext_resource type="Script" path="res://Game.gd" id="1_sofab"]
@@ -7,13 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://dmh12rddm42l8" path="res://chair.tscn" id="6_jnr0h"]
 [ext_resource type="AudioStream" uid="uid://d2ko434uqci12" path="res://Juhani Junkala [Retro Game Music Pack] Title Screen.wav" id="7_pg386"]
 [ext_resource type="PackedScene" uid="uid://bmq3htxf0vqwx" path="res://speed_up.tscn" id="8_6kcy1"]
+[ext_resource type="PackedScene" uid="uid://b7waghl1vpx1m" path="res://level_2.tscn" id="9_5kaqp"]
 [ext_resource type="PackedScene" uid="uid://dfux13hjgok6b" path="res://slow_debuff.tscn" id="9_kkdms"]
+[ext_resource type="PackedScene" uid="uid://ddh6e3tvvwmf4" path="res://level 3.tscn" id="10_5s1yd"]
+[ext_resource type="PackedScene" uid="uid://cg0fgnbl4oqq6" path="res://Final round.tscn" id="11_ce2vw"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_sofab")
 
 [node name="Level1" type="Node2D" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="Level1"]
 layout_mode = 3
@@ -62,6 +66,14 @@ position = Vector2(184, 150)
 
 [node name="SlowDebuff" parent="Level1/PowerUpManager" instance=ExtResource("9_kkdms")]
 position = Vector2(152, 26)
+
+[node name="level 2" parent="." instance=ExtResource("9_5kaqp")]
+
+[node name="level 3" parent="." instance=ExtResource("10_5s1yd")]
+visible = false
+
+[node name="BlockTileMap" parent="." instance=ExtResource("11_ce2vw")]
+visible = false
 
 [connection signal="finished" from="Level1/AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
 [connection signal="timeout" from="Level1/ChairRandomTimer" to="." method="_on_chair_random_timer_timeout"]
