@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5m8nbe6il1ge" path="res://slow_debuff.png" id="2_m1fnl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqnmc"]
-size = Vector2(257.143, 257.143)
+size = Vector2(885.714, 728.572)
 
 [node name="SlowDebuff" type="Area2D"]
 collision_layer = 8
@@ -24,3 +24,4 @@ scale = Vector2(0.07, 0.07)
 shape = SubResource("RectangleShape2D_hqnmc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

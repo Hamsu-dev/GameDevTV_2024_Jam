@@ -254,6 +254,7 @@ animations = [{
 radius = 13.0
 
 [node name="BusinessGoblin" type="CharacterBody2D" groups=["Enemy"]]
+z_index = 5
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_hrd8v")

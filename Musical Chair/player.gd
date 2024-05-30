@@ -93,13 +93,15 @@ func apply_speed_boost(duration):
 		speed = base_speed
 		speed_boost_active = false
 
-func apply_slow_debuff(duration, factor):
+func apply_slow_debuff(factor):
 	if not slow_debuff_active:
 		slow_debuff_active = true
 		speed *= factor
-		await get_tree().create_timer(duration).timeout
-		speed = base_speed
+
+func remove_slow_debuff():
+	if slow_debuff_active:
 		slow_debuff_active = false
+		speed = base_speed
 
 func reset_state():
 	chair_occupied = false
