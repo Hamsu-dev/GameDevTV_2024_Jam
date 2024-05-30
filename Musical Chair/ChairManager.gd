@@ -32,10 +32,6 @@ func on_chair_occupied(chair: Node2D, occupant: Node2D, animation_tree: Animatio
 	# Defer the changes to avoid the flushing queries issue
 	call_deferred("_finalize_chair_occupation", chair, occupant, animation_tree)
 
-	# Check if all chairs are occupied
-	if occupied_chairs >= total_chairs:
-		check_game_over()
-
 func _finalize_chair_occupation(_chair: Node2D, occupant: Node2D, _animation_tree: AnimationTree):
 	# If the occupant is an enemy, stop further state transitions and disable collision
 	if occupant.is_in_group("Enemy"):
@@ -52,13 +48,16 @@ func _finalize_chair_occupation(_chair: Node2D, occupant: Node2D, _animation_tre
 		disable_player_interactions(occupant)
 		occupant.chair_occupied = true  # Set player's chair_occupied state to true
 
+	# Check if all chairs are occupied
+	check_game_over()
+
 func disable_enemy_interactions(enemy):
 	# Disable all interactions for the enemy
 	enemy.ray_cast_2d.enabled = false  # Disable raycast
 	enemy.contact_area.body_entered.disconnect(enemy._on_knockback_detection_body_entered)  # Disable knockback detection
 	enemy.collision_shape_2d.disabled = true  # Disable collision shape
 
-func disable_player_interactions(player):
+func disable_player_interactions(_player):
 	# Add any player-specific interaction disabling if needed
 	player.chair_occupied = true
 
