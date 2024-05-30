@@ -15,7 +15,7 @@ func _on_music_stopped():
 		fsm.change_state(enemy_rush_to_chair_state)
 
 func _on_knockback_detection_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and not chair_occupied:
 		var knockback_direction = (body.global_position - global_position).normalized()
 		body.call("apply_knockback", knockback_direction * knockback_strength)
 
@@ -43,3 +43,9 @@ func _physics_process(_delta):
 	if player and not can_see_target(player):
 		enemy_chase_state.lost_player.emit()
 		player = null
+
+func reset_state():
+	chair_occupied = false
+	collision_shape_2d.disabled = false  # Enable collision shape
+	set_physics_process(true)
+	print("Enemy state reset")

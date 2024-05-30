@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var playback = animation_tree.get("parameters/playback")
 @onready var sprite_2d = $Sprite2D
 @onready var chair_detection = $ChairDetection
+@onready var collision_shape_2d = $CollisionShape2D
 
 @export var speed : float = 70
 
@@ -99,3 +100,12 @@ func apply_slow_debuff(duration, factor):
 		await get_tree().create_timer(duration).timeout
 		speed = base_speed
 		slow_debuff_active = false
+
+func reset_state():
+	chair_occupied = false
+	scale = Vector2.ONE
+	set_physics_process(true)
+	animation_tree.set("parameters/Idle/blend_position", Vector2(0, 1))
+	animation_tree.set("parameters/Walk/blend_position", Vector2(0, 1))
+	collision_shape_2d.disabled = false  # Enable collision shape
+	print("Player state reset")

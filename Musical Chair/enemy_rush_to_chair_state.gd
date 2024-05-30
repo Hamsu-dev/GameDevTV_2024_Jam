@@ -51,7 +51,9 @@ func _physics_process(delta) -> void:
 		
 		# Check if the enemy has reached the chair
 		if actor.global_position.distance_to(target_chair.global_position) < 10:
-			ChairManager.on_chair_occupied_for_enemy(target_chair, actor)  # Notify manager about the occupied chair
+			# Get the ChairManager from the level node
+			var chair_manager = get_tree().get_root().get_node("Game").current_level.get_node("ChairManager")
+			chair_manager.on_chair_occupied(target_chair, actor, animation_tree)  # Notify manager about the occupied chair
 			target_chair.occupied = true
 			actor.chair_occupied = true
 			actor.velocity = Vector2.ZERO
@@ -61,7 +63,7 @@ func _physics_process(delta) -> void:
 				playback.travel("Idle")
 
 func get_nearest_available_chair() -> Node2D:
-	var chairs = get_tree().get_root().get_node("Game/Level1/Chairs").get_children()
+	var chairs = get_tree().get_root().get_node("Game").current_level.get_node("Chairs").get_children()
 	var nearest_chair: Node2D = null
 	var min_distance = INF
 	for chair in chairs:

@@ -11,13 +11,12 @@ config_version=5
 [application]
 
 config/name="FSM Tutorial"
-run/main_scene="res://world.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-ChairManager="*res://ChairManager.gd"
 Events="*res://Events.gd"
 SceneManager="*res://addons/scene_manager/SceneManager.tscn"
 

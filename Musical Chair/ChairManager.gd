@@ -2,13 +2,17 @@ extends Node2D
 
 var total_chairs: int = 0
 var occupied_chairs: int = 0
+var chairs = []
+var player
 
-@onready var player = get_tree().get_root().get_node("Game/Level1/Player")
+signal game_over_lost
+signal game_over_won
 
-func _ready():
-	# Initialize the total number of chairs
-	total_chairs = get_tree().get_root().get_node("Game/Level1/Chairs").get_children().size()
+func initialize(_chairs, _player):
+	chairs = _chairs
+	total_chairs = chairs.size()
 	occupied_chairs = 0
+	player = _player
 
 func on_chair_occupied(chair: Node2D, occupant: Node2D, animation_tree: AnimationTree):
 	print("Chair occupied")
@@ -63,7 +67,7 @@ func disable_player_interactions(_player):
 
 func check_game_over():
 	var all_chairs_occupied = true
-	for chair in get_tree().get_root().get_node("Game/Level1/Chairs").get_children():
+	for chair in chairs:
 		if not chair.occupied:
 			all_chairs_occupied = false
 			break
@@ -71,7 +75,12 @@ func check_game_over():
 	if all_chairs_occupied and not player.chair_occupied:
 		print("YOU LOSE")
 		player.set_process(false)  # Optionally stop player movement
-		change_to_lose_screen()
+		emit_signal("game_over_lost")
+	elif all_chairs_occupied:
+		print("YOU WIN")
+		emit_signal("game_over_won")
 
-func change_to_lose_screen():
-	SceneManager.change_scene("res://lose_screen.tscn")
+func reset_chairs():
+	for chair in chairs:
+		chair.reset()
+	occupied_chairs = 0
