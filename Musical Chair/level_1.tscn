@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddcnvyivs4txf"]
+[gd_scene load_steps=10 format=3 uid="uid://ddcnvyivs4txf"]
 
 [ext_resource type="Texture2D" uid="uid://ou5wgqod5s84" path="res://Water.png" id="1_vbjd4"]
 [ext_resource type="Script" path="res://ChairManager.gd" id="1_vm7pe"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bmq3htxf0vqwx" path="res://speed_up.tscn" id="7_a3v2u"]
 [ext_resource type="PackedScene" uid="uid://dfux13hjgok6b" path="res://slow_debuff.tscn" id="8_ygdao"]
 [ext_resource type="PackedScene" uid="uid://cscdgtfr4la66" path="res://camera_limits.tscn" id="9_k2us2"]
+[ext_resource type="PackedScene" uid="uid://gqxpm62u7b8n" path="res://water.tscn" id="10_vdaxv"]
 
 [node name="Level1" type="Node2D"]
 
@@ -33,6 +34,7 @@ position = Vector2(-38, -77)
 [node name="BusinessGoblin2" parent="Enemy" instance=ExtResource("5_rp85q")]
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,4 +76,13 @@ offset_top = -60.0
 offset_right = 397.0
 offset_bottom = 203.0
 
+[node name="Water" parent="." instance=ExtResource("10_vdaxv")]
+
+[node name="ColorRect" parent="Water" index="0"]
+offset_left = -246.0
+offset_top = -214.0
+offset_right = 575.0
+offset_bottom = 380.0
+
 [editable path="Enemy/BusinessGoblin"]
+[editable path="Water"]
