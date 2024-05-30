@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://blp23h3gehyqm"]
+[gd_scene load_steps=12 format=3 uid="uid://blp23h3gehyqm"]
 
 [ext_resource type="Texture2D" uid="uid://degbuj12voec2" path="res://Grass.png" id="1_uajwu"]
 [ext_resource type="Texture2D" uid="uid://cni8q1qsaa8u6" path="res://Basic_Furniture.png" id="1_xiunm"]
 [ext_resource type="Texture2D" uid="uid://tnnh1bki3cdm" path="res://Hills.png" id="2_eoiqo"]
 [ext_resource type="Texture2D" uid="uid://digbufdcrb2le" path="res://Basic_Grass_Biom_things.png" id="4_qpchx"]
+[ext_resource type="PackedScene" uid="uid://xrct5oiox7ju" path="res://tree.tscn" id="5_oyrnu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_glwdg"]
 texture = ExtResource("1_xiunm")
@@ -1320,6 +1321,10 @@ texture = ExtResource("4_qpchx")
 8:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:4/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_al7pg"]
+resource_name = "Tree"
+scenes/1/scene = ExtResource("5_oyrnu")
+
 [sub_resource type="TileSet" id="TileSet_qw5fe"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
@@ -1332,6 +1337,7 @@ sources/1 = SubResource("TileSetAtlasSource_evmrh")
 sources/2 = SubResource("TileSetAtlasSource_bxjhc")
 sources/0 = SubResource("TileSetAtlasSource_glwdg")
 sources/3 = SubResource("TileSetAtlasSource_20mn1")
+sources/4 = SubResource("TileSetScenesCollectionSource_al7pg")
 
 [node name="BlockTileMap" type="TileMap"]
 tile_set = SubResource("TileSet_qw5fe")
