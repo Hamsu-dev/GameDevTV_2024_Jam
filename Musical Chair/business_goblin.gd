@@ -1,6 +1,8 @@
 class_name Enemy
 extends EnemyBase
 
+var is_rushing_to_chair = false  # New flag to track rush-to-chair state
+
 func _ready():
 	enemy_wander_state.found_player.connect(fsm.change_state.bind(enemy_chase_state))
 	enemy_chase_state.lost_player.connect(fsm.change_state.bind(enemy_wander_state))
@@ -11,8 +13,9 @@ func _ready():
 	game_manager.music_stopped.connect(_on_music_stopped)
 
 func _on_music_stopped():
-	if not chair_occupied:  # Only change state if the enemy has not occupied a chair
+	if not chair_occupied and not is_rushing_to_chair:  # Only change state if the enemy has not occupied a chair
 		fsm.change_state(enemy_rush_to_chair_state)
+		is_rushing_to_chair = true
 
 func _on_knockback_detection_body_entered(body):
 	if body.is_in_group("Player") and not chair_occupied:
@@ -20,7 +23,7 @@ func _on_knockback_detection_body_entered(body):
 		body.call("apply_knockback", knockback_direction * knockback_strength)
 
 func _on_detection_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and not is_rushing_to_chair:  # Prevent switching to chase state
 		player = body
 		if can_see_target(body):
 			enemy_wander_state.found_player.emit()
@@ -46,6 +49,7 @@ func _physics_process(_delta):
 
 func reset_state():
 	chair_occupied = false
+	is_rushing_to_chair = false  # Reset the flag when the state is reset
 	collision_shape_2d.disabled = false  # Enable collision shape
 	set_physics_process(true)
 	print("Enemy state reset")
