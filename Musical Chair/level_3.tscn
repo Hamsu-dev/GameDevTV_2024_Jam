@@ -55,12 +55,6 @@ position = Vector2(140, 128)
 [node name="Chair2" parent="Chairs" instance=ExtResource("2_24jwy")]
 position = Vector2(234, 9)
 
-[node name="Chair3" parent="Chairs" instance=ExtResource("2_24jwy")]
-position = Vector2(11, 9)
-
-[node name="Chair4" parent="Chairs" instance=ExtResource("2_24jwy")]
-position = Vector2(9, 163)
-
 [node name="Enemy" type="Node2D" parent="."]
 z_index = 1
 position = Vector2(55, 130)
@@ -79,6 +73,21 @@ position = Vector2(184, -56)
 
 [node name="BusinessGoblin5" parent="Enemy" instance=ExtResource("3_0xfaa")]
 position = Vector2(258, -39)
+
+[node name="BusinessGoblin6" parent="Enemy" instance=ExtResource("3_0xfaa")]
+position = Vector2(258, 26)
+
+[node name="BusinessGoblin7" parent="Enemy" instance=ExtResource("3_0xfaa")]
+position = Vector2(-45, 9)
+
+[node name="BusinessGoblin8" parent="Enemy" instance=ExtResource("3_0xfaa")]
+position = Vector2(258, -110)
+
+[node name="BusinessGoblin9" parent="Enemy" instance=ExtResource("3_0xfaa")]
+position = Vector2(119, -43)
+
+[node name="BusinessGoblin10" parent="Enemy" instance=ExtResource("3_0xfaa")]
+position = Vector2(-44, -75)
 
 [node name="DebuffEnemy" parent="." instance=ExtResource("7_tnpdw")]
 position = Vector2(153, 30)

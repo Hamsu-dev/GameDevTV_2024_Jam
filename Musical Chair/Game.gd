@@ -11,7 +11,6 @@ extends Node2D
 @onready var music_level_3 = $MusicLevel3
 @onready var stuck_timer = $StuckTimer
 
-
 var play_area_size: Vector2
 var play_area_position: Vector2
 var game_state = "music_playing"
@@ -36,24 +35,26 @@ func initialize_level(level_path: String, randomize_chairs: bool, chair_timer_in
 		for debuff in active_debuffs:
 			debuff.queue_free()
 		active_debuffs.clear()
-		
+	
 	current_level = load(level_path).instantiate()
 	add_child(current_level)
 
-	play_area_size = current_level.get_node("Control/Room").size
-	play_area_position = current_level.get_node("Control/Room").position
-	var chairs = current_level.get_node("Chairs").get_children()
-	chair_manager = current_level.get_node("ChairManager")
-	chair_manager.initialize(chairs, player)
+	# Only proceed if we're not at the main menu
+	if level_path != "res://MainMenu.tscn":
+		play_area_size = current_level.get_node("Control/Room").size
+		play_area_position = current_level.get_node("Control/Room").position
+		var chairs = current_level.get_node("Chairs").get_children()
+		chair_manager = current_level.get_node("ChairManager")
+		chair_manager.initialize(chairs, player)
 	
-	player.reset_state()
-	place_player_on_walkable_tile()
-	reset_enemies()
+		player.reset_state()
+		place_player_on_walkable_tile()
+		reset_enemies()
 	
-	chair_manager.game_over_lost.connect(_on_game_over_lost)
-	chair_manager.game_over_won.connect(_on_game_over_won)
+		chair_manager.game_over_lost.connect(_on_game_over_lost)
+		chair_manager.game_over_won.connect(_on_game_over_won)
 
-	start_music(level_path, randomize_chairs, chair_timer_interval)
+		start_music(level_path, randomize_chairs, chair_timer_interval)
 
 func start_music(level_path: String, randomize_chairs: bool, chair_timer_interval: float):
 	if current_music_player:
@@ -162,8 +163,7 @@ func _on_game_over_won():
 	elif current_level.scene_file_path == "res://level_2.tscn":
 		change_levels("res://level_3.tscn")
 	else:
-		change_levels("res://MainMenu.tscn")
-		
+		_on_game_over_lost()
 
 func _on_stuck_timer_timeout():
 	if player.chair_occupied:
