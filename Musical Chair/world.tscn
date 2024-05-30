@@ -9,7 +9,6 @@ y_sort_enabled = true
 script = ExtResource("1_sofab")
 
 [node name="Player" parent="." instance=ExtResource("4_nvw6d")]
-z_index = 10
 position = Vector2(169, 93)
 speed = 50.0
 

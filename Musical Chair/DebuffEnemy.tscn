@@ -1,11 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://crh1uaffk3dmu"]
+[gd_scene load_steps=28 format=3 uid="uid://cofa1x1pg1a86"]
 
-[ext_resource type="Texture2D" uid="uid://dydh21cygtos2" path="res://FOXSPRITESHEET.png" id="1_8wgpy"]
-[ext_resource type="Script" path="res://player.gd" id="1_dk53n"]
-[ext_resource type="Script" path="res://PlayerCamera.gd" id="3_o4w5r"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fctw4"]
-radius = 4.47214
+[ext_resource type="Script" path="res://DebuffEnemy.gd" id="1_kemyh"]
+[ext_resource type="Texture2D" uid="uid://c4ar3jus1gh42" path="res://BIRDSPRITESHEET_Blue.png" id="2_0q8xy"]
 
 [sub_resource type="Animation" id="Animation_hkhn2"]
 length = 0.001
@@ -227,30 +223,25 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xxewx"]
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_k3ke3"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_17t8a"]
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_bokfs")
 states/Idle/position = Vector2(360, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ptmpk")
 states/Walk/position = Vector2(681, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_dxle1"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_wfb2a"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xxewx")]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v3gqv"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_fcy6x"]
+radius = 79.0569
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
-z_index = 10
-collision_layer = 2
-collision_mask = 15
-script = ExtResource("1_dk53n")
+[node name="DebuffEnemy" type="Node2D"]
+z_index = 5
+script = ExtResource("1_kemyh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12)
-texture = ExtResource("1_8wgpy")
+texture = ExtResource("2_0q8xy")
 hframes = 4
 vframes = 13
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_fctw4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -261,22 +252,22 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_sh61x")
 }
-tree_root = SubResource("AnimationNodeStateMachine_k3ke3")
+tree_root = SubResource("AnimationNodeStateMachine_17t8a")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
 
-[node name="ChairDetection" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 8
+[node name="DebuffThrowTimer" type="Timer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChairDetection"]
-position = Vector2(0, -10)
-shape = SubResource("CircleShape2D_v3gqv")
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-script = ExtResource("3_o4w5r")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_fcy6x")
 
-[connection signal="area_entered" from="ChairDetection" to="." method="_on_chair_detection_area_entered"]
-[connection signal="area_exited" from="ChairDetection" to="." method="_on_chair_detection_area_exited"]
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="timeout" from="DebuffThrowTimer" to="." method="_on_debuff_throw_timer_timeout"]
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
