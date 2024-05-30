@@ -273,17 +273,17 @@ texture_hover = ExtResource("8_kk8bj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(58, 155)
 sprite_frames = SubResource("SpriteFrames_wgfp0")
-frame_progress = 0.565142
+frame_progress = 0.504368
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
 position = Vector2(78, 155)
 sprite_frames = SubResource("SpriteFrames_8bt88")
-frame_progress = 0.94488
+frame_progress = 0.884106
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
 position = Vector2(97, 155)
 sprite_frames = SubResource("SpriteFrames_5e2n6")
-frame_progress = 0.678229
+frame_progress = 0.612403
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 1

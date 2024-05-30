@@ -76,7 +76,7 @@ layer_2/tile_data = PackedInt32Array(393222, 196611, 0, 458758, 196611, 1, 39322
 [node name="PowerUpManager" type="Node" parent="."]
 
 [node name="SpeedBoots" parent="PowerUpManager" instance=ExtResource("6_2t27e")]
-position = Vector2(160, 144)
+position = Vector2(209, 121)
 
 [node name="CameraLimits" parent="." instance=ExtResource("8_lh0lb")]
 visible = false

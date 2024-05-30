@@ -163,6 +163,7 @@ func _on_game_over_won():
 		change_levels("res://level_3.tscn")
 	else:
 		change_levels("res://MainMenu.tscn")
+		
 
 func _on_stuck_timer_timeout():
 	if player.chair_occupied:
@@ -173,7 +174,6 @@ func _on_stuck_timer_timeout():
 				break
 
 		if not all_chairs_occupied:
-			print("Enemies are stuck, moving to the next level.")
 			_on_game_over_won()  # Simulate game won if enemies are stuck and player is on chair
 
 func add_debuff(debuff):

@@ -1,8 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cae72cvsbwumh"]
+[gd_scene load_steps=6 format=3 uid="uid://cae72cvsbwumh"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1_sofab"]
+[ext_resource type="Shader" path="res://MainMenu.gdshader" id="4_d65f7"]
 [ext_resource type="PackedScene" uid="uid://crh1uaffk3dmu" path="res://player.tscn" id="4_nvw6d"]
 [ext_resource type="AudioStream" uid="uid://d2ko434uqci12" path="res://Juhani Junkala [Retro Game Music Pack] Title Screen.wav" id="7_pg386"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_30wi0"]
+shader = ExtResource("4_d65f7")
+shader_parameter/angle = -0.3
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.5
+shader_parameter/cutoff = 0.1
+shader_parameter/falloff = 0.2
+shader_parameter/edge_fade = 0.15
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -27,6 +43,14 @@ stream = ExtResource("7_pg386")
 [node name="ChairTimer" type="Timer" parent="."]
 
 [node name="StuckTimer" type="Timer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_30wi0")
+offset_left = -43.0
+offset_top = -83.0
+offset_right = 26.0
+offset_bottom = 4.0
 
 [connection signal="timeout" from="ChairTimer" to="." method="_on_chair_timer_timeout"]
 [connection signal="timeout" from="StuckTimer" to="." method="_on_stuck_timer_timeout"]
