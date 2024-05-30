@@ -19,9 +19,9 @@ var ground_tile_id = 1
 signal music_stopped
 
 func _ready():
-	initialize_level("res://level_1.tscn")
+	initialize_level("res://level_1.tscn", false)  # Initial level with no random chair
 
-func initialize_level(level_path: String):
+func initialize_level(level_path: String, randomize_chairs: bool):
 	if current_level:
 		current_level.queue_free()
 	current_level = load(level_path).instantiate()
@@ -40,9 +40,9 @@ func initialize_level(level_path: String):
 	chair_manager.game_over_lost.connect(_on_game_over_lost)
 	chair_manager.game_over_won.connect(_on_game_over_won)
 
-	start_music(level_path)
+	start_music(level_path, randomize_chairs)
 
-func start_music(level_path: String):
+func start_music(level_path: String, randomize_chairs: bool):
 	# Stop all music players and disconnect their signals
 	if current_music_player:
 		current_music_player.stop()
@@ -59,12 +59,12 @@ func start_music(level_path: String):
 		current_music_player.play()
 
 	game_state = "music_playing"
-	start_randomizing_chairs()
+	if randomize_chairs:
+		start_randomizing_chairs()
 	for chair in chair_manager.chairs:
 		chair.occupied = false
 		chair.collision_shape.disabled = true  # Disable chair collisions
 	player.chair_occupied = false
-	print("Music playing! Chairs are not accessible yet.")
 
 func _on_audio_stream_player_finished():
 	game_state = "music_stopped"
@@ -72,8 +72,7 @@ func _on_audio_stream_player_finished():
 	player.chair_occupied = false
 	for chair in chair_manager.chairs:
 		chair.enable_collision()  # Enable chair collisions
-	print("Music stopped! Find a chair!")
-	emit_signal("music_stopped")  # Emit the signal
+	music_stopped.emit()
 
 	# Ensure enemies find the nearest chair when music stops
 	for enemy in current_level.get_node("Enemy").get_children():
@@ -126,14 +125,14 @@ func reset_enemies():
 		enemy.reset_state()
 
 func change_levels(level_path):
+	# Determine if the next level should randomize chairs
+	var randomize_chairs = (level_path != "res://level_1.tscn")
 	# Load the new level
-	initialize_level(level_path)
+	initialize_level(level_path, randomize_chairs)
 
 func _on_game_over_lost():
-	print("YOU LOSE")
 	SceneManager.change_scene("res://MainMenu.tscn")
 	#change_levels("res://MainMenu.tscn")
 
 func _on_game_over_won():
-	print("YOU WIN")
 	change_levels("res://level_2.tscn")
