@@ -2,14 +2,17 @@ extends Node2D
 
 @export var min_chair_distance: int = 50  # Minimum distance between chairs
 @export var max_chair_distance: int = 150  # Maximum teleportation range
+@export var stuck_check_interval: float = 5.0  # Interval to check if the enemies are stuck
 
 @onready var player = $Player
 @onready var chair_timer = $ChairTimer
 @onready var music_level_1 = $MusicLevel1
 @onready var music_level_2 = $MusicLevel2
 @onready var music_level_3 = $MusicLevel3
+@onready var stuck_timer = $StuckTimer
 
-var play_area_size: Vector2 = Vector2(320, 180)
+
+var play_area_size: Vector2
 var play_area_position: Vector2
 var game_state = "music_playing"
 var current_level
@@ -23,14 +26,15 @@ var ground_tile_id = 1
 signal music_stopped
 
 func _ready():
-	initialize_level("res://level_1.tscn", false)
+	initialize_level("res://level_1.tscn", false, 2.0)  # Initial level with no random chair, default interval
 
-func initialize_level(level_path: String, randomize_chairs: bool):
+func initialize_level(level_path: String, randomize_chairs: bool, chair_timer_interval: float):
 	if current_level:
 		current_level.queue_free()
 	current_level = load(level_path).instantiate()
 	add_child(current_level)
 
+	play_area_size = current_level.get_node("Control/Room").size
 	play_area_position = current_level.get_node("Control/Room").position
 	var chairs = current_level.get_node("Chairs").get_children()
 	chair_manager = current_level.get_node("ChairManager")
@@ -43,9 +47,9 @@ func initialize_level(level_path: String, randomize_chairs: bool):
 	chair_manager.game_over_lost.connect(_on_game_over_lost)
 	chair_manager.game_over_won.connect(_on_game_over_won)
 
-	start_music(level_path, randomize_chairs)
+	start_music(level_path, randomize_chairs, chair_timer_interval)
 
-func start_music(level_path: String, randomize_chairs: bool):
+func start_music(level_path: String, randomize_chairs: bool, chair_timer_interval: float):
 	if current_music_player:
 		current_music_player.stop()
 		current_music_player.finished.disconnect(_on_audio_stream_player_finished)
@@ -63,7 +67,7 @@ func start_music(level_path: String, randomize_chairs: bool):
 
 	game_state = "music_playing"
 	if randomize_chairs:
-		start_randomizing_chairs()
+		start_randomizing_chairs(chair_timer_interval)
 	for chair in chair_manager.chairs:
 		chair.occupied = false
 		chair.collision_shape.disabled = true
@@ -82,8 +86,11 @@ func _on_audio_stream_player_finished():
 	for enemy in current_level.get_node("Enemy").get_children():
 		enemy._on_music_stopped()
 
-func start_randomizing_chairs():
-	chair_timer.start(2.0)
+	# Start the stuck check timer
+	stuck_timer.start(stuck_check_interval)
+
+func start_randomizing_chairs(chair_timer_interval: float):
+	chair_timer.start(chair_timer_interval)
 
 func stop_randomizing_chairs():
 	chair_timer.stop()
@@ -135,7 +142,10 @@ func reset_enemies():
 
 func change_levels(level_path):
 	var randomize_chairs = (level_path != "res://level_1.tscn")
-	initialize_level(level_path, randomize_chairs)
+	var chair_timer_interval = 2.0  # Default interval
+	if level_path == "res://level_3.tscn":
+		chair_timer_interval = 0.5  # Faster interval for level 3
+	initialize_level(level_path, randomize_chairs, chair_timer_interval)
 
 func _on_game_over_lost():
 	SceneManager.change_scene("res://MainMenu.tscn")
@@ -147,3 +157,15 @@ func _on_game_over_won():
 		change_levels("res://level_3.tscn")
 	else:
 		change_levels("res://level_1.tscn")
+
+func _on_stuck_timer_timeout():
+	if player.chair_occupied:
+		var all_chairs_occupied = true
+		for chair in chair_manager.chairs:
+			if not chair.occupied:
+				all_chairs_occupied = false
+				break
+
+		if not all_chairs_occupied:
+			print("Enemies are stuck, moving to the next level.")
+			_on_game_over_won()  # Simulate game won if enemies are stuck and player is on chair
