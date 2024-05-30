@@ -1,6 +1,6 @@
 extends Area2D
 
-var slow_factor = 0.25
+@export var slow_factor = 0.50
 
 func _on_body_entered(body):
 	if body.is_in_group("Player"):
@@ -9,5 +9,4 @@ func _on_body_entered(body):
 
 func _on_body_exited(body):
 	if body.is_in_group("Player"):
-		print("debuff removed")
 		body.remove_slow_debuff()

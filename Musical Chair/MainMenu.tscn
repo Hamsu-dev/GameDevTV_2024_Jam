@@ -1,26 +1,212 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckmy6871jpe5c"]
+[gd_scene load_steps=43 format=3 uid="uid://ckmy6871jpe5c"]
 
 [ext_resource type="Script" path="res://lose_screen.gd" id="1_6hghf"]
-[ext_resource type="Shader" path="res://rainbow.gdshader" id="2_ai2nt"]
-[ext_resource type="Shader" path="res://rainbow2.gdshader" id="3_vsw6a"]
+[ext_resource type="Texture2D" uid="uid://dbdismw61y3nd" path="res://MainMenu.png" id="2_qauw3"]
+[ext_resource type="Texture2D" uid="uid://rrrgcdw6sl6w" path="res://Icon5.png" id="3_ejadx"]
+[ext_resource type="Texture2D" uid="uid://36mn1ecvelu7" path="res://IconPrs5.png" id="4_jrtxo"]
+[ext_resource type="FontFile" uid="uid://d2hntpwkm8ya5" path="res://Playground.ttf" id="4_ohsrx"]
+[ext_resource type="Texture2D" uid="uid://bbtl3t532nb1w" path="res://Icon8.png" id="5_l50do"]
+[ext_resource type="Texture2D" uid="uid://dfk2ghha863r5" path="res://IconPrs8.png" id="6_tah6d"]
+[ext_resource type="Texture2D" uid="uid://d3dmpvpr5lt5f" path="res://Icon17.png" id="7_rdfbe"]
+[ext_resource type="Texture2D" uid="uid://cou2m5enwfe6g" path="res://IconPrs17.png" id="8_kk8bj"]
+[ext_resource type="Texture2D" uid="uid://c4ar3jus1gh42" path="res://BIRDSPRITESHEET_Blue.png" id="9_sna4m"]
+[ext_resource type="Texture2D" uid="uid://dydh21cygtos2" path="res://FOXSPRITESHEET.png" id="10_a7jwg"]
+[ext_resource type="Texture2D" uid="uid://ci74731xnwkue" path="res://RACCOONSPRITESHEET.png" id="11_wdbxa"]
+[ext_resource type="Texture2D" uid="uid://cfpk7ghy3mxgq" path="res://UI_Flat_Button_Medium_Release_02a4.png" id="12_0ay4l"]
+[ext_resource type="Texture2D" uid="uid://kh2mdmj67jof" path="res://UI_Flat_Button_Medium_Press_02a4.png" id="12_a1b4d"]
+[ext_resource type="AudioStream" uid="uid://blx5a5hk6mipv" path="res://Juhani Junkala [Retro Game Music Pack] Level 3.wav" id="15_mpw0k"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_haeg3"]
-shader = ExtResource("2_ai2nt")
-shader_parameter/strength = 0.5
-shader_parameter/speed = 0.5
-shader_parameter/angle = 0.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ckx"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(0, 160, 32, 32)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6krp"]
-shader = ExtResource("3_vsw6a")
-shader_parameter/color = Vector4(0, 0, 0, 1)
-shader_parameter/scale = 1.0
-shader_parameter/disp = Vector2(0, 0)
-shader_parameter/speed = 1.0
-shader_parameter/nucleus = 1.0
-shader_parameter/contrast = 0.5
-shader_parameter/line = 1.0
-shader_parameter/layer1 = 1.0
-shader_parameter/layer2 = 1.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vb86"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4hkh"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvyiw"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7rju"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abel0"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7ufe"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbek6"]
+atlas = ExtResource("9_sna4m")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wgfp0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ckx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vb86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4hkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvyiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7rju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abel0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7ufe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbek6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30jg6"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkdda"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw6uc"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32xp5"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2pvb"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bak2"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqnil"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxtm8"]
+atlas = ExtResource("10_a7jwg")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bt88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30jg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkdda")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw6uc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32xp5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2pvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bak2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqnil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxtm8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yuyeo"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8muqn"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y05t1"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no6mw"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgd6m"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoq66"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjkxy"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qhwc"]
+atlas = ExtResource("11_wdbxa")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5e2n6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yuyeo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8muqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y05t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_no6mw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgd6m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoq66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjkxy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qhwc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 13.0
+}]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -31,108 +217,116 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6hghf")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_haeg3")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="ColorRect"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -61.0
-offset_top = -85.0
-offset_right = 61.0
-offset_bottom = -62.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "MUSICAL CHAIR"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="ColorRect"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -33.0
-offset_top = -13.0
-offset_right = 33.0
-offset_bottom = 13.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
-text = "Start
-"
-
 [node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_qauw3")
+expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="TextureRect"]
-material = SubResource("ShaderMaterial_f6krp")
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="TextureRect/ColorRect"]
-layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -61.0
-offset_top = -85.0
-offset_right = 61.0
-offset_bottom = -62.0
+offset_left = -149.0
+offset_right = 149.0
+offset_bottom = 70.0
 grow_horizontal = 2
-grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "MUSICAL CHAIR"
+theme_override_fonts/font = ExtResource("4_ohsrx")
+theme_override_font_sizes/font_size = 30
+text = "Last Musical Chair"
 horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="Button" type="Button" parent="TextureRect/ColorRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Discord" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_ejadx")
+texture_pressed = ExtResource("4_jrtxo")
+texture_hover = ExtResource("4_jrtxo")
+
+[node name="Insta" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_l50do")
+texture_pressed = ExtResource("6_tah6d")
+texture_hover = ExtResource("6_tah6d")
+
+[node name="Itch" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_rdfbe")
+texture_pressed = ExtResource("8_kk8bj")
+texture_hover = ExtResource("8_kk8bj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(58, 155)
+sprite_frames = SubResource("SpriteFrames_wgfp0")
+frame_progress = 0.565142
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(78, 155)
+sprite_frames = SubResource("SpriteFrames_8bt88")
+frame_progress = 0.94488
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
+position = Vector2(97, 155)
+sprite_frames = SubResource("SpriteFrames_5e2n6")
+frame_progress = 0.678229
+
+[node name="Label2" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -33.0
-offset_top = -13.0
-offset_right = 33.0
-offset_bottom = 13.0
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -42.0
+offset_right = 25.0
+offset_bottom = -12.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 13
-text = "Start
-"
+theme_override_fonts/font = ExtResource("4_ohsrx")
+theme_override_font_sizes/font_size = 20
+text = "Play"
+horizontal_alignment = 1
 
-[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="TextureRect/ColorRect/Button" to="." method="_on_button_pressed"]
+[node name="TextureButton" type="TextureButton" parent="Label2"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.5
+offset_top = -32.0
+offset_right = 31.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("12_0ay4l")
+texture_pressed = ExtResource("12_0ay4l")
+texture_hover = ExtResource("12_a1b4d")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("15_mpw0k")
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Discord" to="." method="_on_discord_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Insta" to="." method="_on_insta_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Itch" to="." method="_on_itch_pressed"]
+[connection signal="pressed" from="Label2/TextureButton" to="." method="_on_texture_button_pressed"]

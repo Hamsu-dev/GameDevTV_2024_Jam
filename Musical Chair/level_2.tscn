@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://blp23h3gehyqm" path="res://block_tile_map.tscn" id="5_3mshm"]
 [ext_resource type="PackedScene" uid="uid://gqxpm62u7b8n" path="res://water.tscn" id="5_amv4j"]
 [ext_resource type="PackedScene" uid="uid://bmq3htxf0vqwx" path="res://speed_up.tscn" id="6_2t27e"]
-[ext_resource type="PackedScene" uid="uid://dfux13hjgok6b" path="res://slow_debuff.tscn" id="7_hvc3v"]
 [ext_resource type="PackedScene" uid="uid://cscdgtfr4la66" path="res://camera_limits.tscn" id="8_lh0lb"]
+[ext_resource type="PackedScene" uid="uid://cofa1x1pg1a86" path="res://DebuffEnemy.tscn" id="9_u6u3n"]
 
 [node name="Level2" type="Node2D"]
 
@@ -23,6 +23,9 @@ position = Vector2(112, 91)
 
 [node name="Chair2" parent="Chairs" instance=ExtResource("2_mjcxk")]
 position = Vector2(271, 106)
+
+[node name="Chair3" parent="Chairs" instance=ExtResource("2_mjcxk")]
+position = Vector2(181, 32)
 
 [node name="Enemy" type="Node2D" parent="."]
 z_index = 1
@@ -75,9 +78,6 @@ layer_2/tile_data = PackedInt32Array(393222, 196611, 0, 458758, 196611, 1, 39322
 [node name="SpeedBoots" parent="PowerUpManager" instance=ExtResource("6_2t27e")]
 position = Vector2(160, 144)
 
-[node name="SlowDebuff" parent="PowerUpManager" instance=ExtResource("7_hvc3v")]
-position = Vector2(189, 31)
-
 [node name="CameraLimits" parent="." instance=ExtResource("8_lh0lb")]
 visible = false
 offset_left = -49.0
@@ -90,6 +90,12 @@ position = Vector2(-96, -83)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(127, 99, 127, 195, 159, 195, 159, 210, 174, 211, 175, 226, 218, 227, 223, 232, 223, 242, 255, 244, 255, 258, 321, 258, 321, 243, 368, 243, 370, 227, 416, 227, 417, 178, 401, 178, 401, 131, 369, 131, 369, 98, 307, 98, 305, 83, 160, 83, 159, 96, 165, 118, 189, 118, 191, 132, 206, 134, 206, 148, 238, 149, 238, 164, 255, 166, 255, 180, 271, 183, 270, 195, 271, 197, 321, 197, 321, 178, 307, 176, 306, 161, 292, 160, 290, 145, 262, 145, 257, 140, 257, 129, 226, 129, 226, 102, 303, 101, 303, 116, 334, 117, 334, 131, 349, 134, 350, 147, 365, 151, 366, 164, 381, 167, 382, 209, 351, 209, 349, 226, 271, 225, 269, 241, 244, 241, 242, 225, 213, 224, 210, 220, 210, 209, 195, 209, 194, 193, 178, 193, 178, 177, 164, 177, 162, 161, 147, 161, 146, 133, 162, 133, 163, 119, 155, 99)
+
+[node name="DebuffEnemy" parent="." instance=ExtResource("9_u6u3n")]
+position = Vector2(282, 34)
+
+[node name="DebuffEnemy2" parent="." instance=ExtResource("9_u6u3n")]
+position = Vector2(119, 152)
 
 [editable path="Enemy/BusinessGoblin"]
 [editable path="Water"]

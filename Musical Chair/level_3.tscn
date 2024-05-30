@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdk0dm2fo0dd1"]
+[gd_scene load_steps=8 format=3 uid="uid://cdk0dm2fo0dd1"]
 
 [ext_resource type="Script" path="res://ChairManager.gd" id="1_237mj"]
 [ext_resource type="PackedScene" uid="uid://dmh12rddm42l8" path="res://chair.tscn" id="2_24jwy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://0swq8evanvan" path="res://business_goblin.tscn" id="3_0xfaa"]
 [ext_resource type="Texture2D" uid="uid://ou5wgqod5s84" path="res://Water.png" id="4_b0adf"]
 [ext_resource type="PackedScene" uid="uid://blp23h3gehyqm" path="res://block_tile_map.tscn" id="5_fe86p"]
+[ext_resource type="PackedScene" uid="uid://cofa1x1pg1a86" path="res://DebuffEnemy.tscn" id="7_tnpdw"]
 
 [node name="Level_3" type="Node2D"]
 
@@ -78,6 +79,18 @@ position = Vector2(184, -56)
 
 [node name="BusinessGoblin5" parent="Enemy" instance=ExtResource("3_0xfaa")]
 position = Vector2(258, -39)
+
+[node name="DebuffEnemy" parent="." instance=ExtResource("7_tnpdw")]
+position = Vector2(153, 30)
+
+[node name="DebuffEnemy2" parent="." instance=ExtResource("7_tnpdw")]
+position = Vector2(50, 34)
+
+[node name="DebuffEnemy3" parent="." instance=ExtResource("7_tnpdw")]
+position = Vector2(205, 63)
+
+[node name="DebuffEnemy4" parent="." instance=ExtResource("7_tnpdw")]
+position = Vector2(111, 144)
 
 [editable path="Water"]
 [editable path="Enemy/BusinessGoblin"]

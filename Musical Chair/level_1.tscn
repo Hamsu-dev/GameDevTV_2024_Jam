@@ -1,18 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddcnvyivs4txf"]
+[gd_scene load_steps=10 format=3 uid="uid://ddcnvyivs4txf"]
 
 [ext_resource type="Texture2D" uid="uid://ou5wgqod5s84" path="res://Water.png" id="1_vbjd4"]
 [ext_resource type="Script" path="res://ChairManager.gd" id="1_vm7pe"]
 [ext_resource type="PackedScene" uid="uid://blp23h3gehyqm" path="res://block_tile_map.tscn" id="2_14d8y"]
-[ext_resource type="PackedScene" uid="uid://cofa1x1pg1a86" path="res://DebuffEnemy.tscn" id="3_afdnb"]
 [ext_resource type="PackedScene" uid="uid://dmh12rddm42l8" path="res://chair.tscn" id="3_wpisx"]
 [ext_resource type="PackedScene" uid="uid://0swq8evanvan" path="res://business_goblin.tscn" id="5_rp85q"]
 [ext_resource type="PackedScene" uid="uid://bmq3htxf0vqwx" path="res://speed_up.tscn" id="7_a3v2u"]
-[ext_resource type="PackedScene" uid="uid://dfux13hjgok6b" path="res://slow_debuff.tscn" id="8_ygdao"]
+[ext_resource type="PackedScene" uid="uid://dawy4fkymo2lc" path="res://puddle_slow.tscn" id="7_mxf5p"]
 [ext_resource type="PackedScene" uid="uid://cscdgtfr4la66" path="res://camera_limits.tscn" id="9_k2us2"]
 [ext_resource type="PackedScene" uid="uid://gqxpm62u7b8n" path="res://water.tscn" id="10_vdaxv"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_13gol"]
-radius = 24.0208
 
 [node name="Level1" type="Node2D"]
 
@@ -33,7 +29,10 @@ z_index = 1
 position = Vector2(55, 130)
 
 [node name="BusinessGoblin" parent="Enemy" instance=ExtResource("5_rp85q")]
-position = Vector2(-33, -123)
+position = Vector2(-17, -65)
+
+[node name="BusinessGoblin2" parent="Enemy" instance=ExtResource("5_rp85q")]
+position = Vector2(66, 6)
 
 [node name="Control" type="Control" parent="."]
 visible = false
@@ -71,28 +70,11 @@ layer_2/tile_data = PackedInt32Array(131086, 3, 0, 196622, 3, 1, 131087, 3, 0, 1
 [node name="SpeedBoots" parent="PowerUpManager" instance=ExtResource("7_a3v2u")]
 position = Vector2(184, 150)
 
-[node name="SlowDebuff" parent="PowerUpManager" instance=ExtResource("8_ygdao")]
-position = Vector2(156, 20)
+[node name="Puddle" parent="PowerUpManager" instance=ExtResource("7_mxf5p")]
+position = Vector2(173, 44)
 
-[node name="Sprite2D" parent="PowerUpManager/SlowDebuff" index="0"]
-position = Vector2(22, 16.5)
-scale = Vector2(1.9375, 1.59375)
-
-[node name="CollisionShape2D" parent="PowerUpManager/SlowDebuff" index="1"]
-position = Vector2(21, 15)
-shape = SubResource("CircleShape2D_13gol")
-
-[node name="SlowDebuff2" parent="PowerUpManager" instance=ExtResource("8_ygdao")]
-position = Vector2(78, 105)
-rotation = -3.30042
-
-[node name="Sprite2D" parent="PowerUpManager/SlowDebuff2" index="0"]
-position = Vector2(22, 16.5)
-scale = Vector2(1.9375, 1.59375)
-
-[node name="CollisionShape2D" parent="PowerUpManager/SlowDebuff2" index="1"]
-position = Vector2(18.6796, 16.1577)
-scale = Vector2(2.635, 2.635)
+[node name="Puddle2" parent="PowerUpManager" instance=ExtResource("7_mxf5p")]
+position = Vector2(45, 100)
 
 [node name="CameraLimits" parent="." instance=ExtResource("9_k2us2")]
 visible = false
@@ -109,14 +91,5 @@ offset_top = -214.0
 offset_right = 575.0
 offset_bottom = 380.0
 
-[node name="DebuffEnemy" parent="." instance=ExtResource("3_afdnb")]
-position = Vector2(266, 30)
-
-[node name="Marker2D" parent="DebuffEnemy" index="5"]
-position = Vector2(0, 1)
-
 [editable path="PowerUpManager/SpeedBoots"]
-[editable path="PowerUpManager/SlowDebuff"]
-[editable path="PowerUpManager/SlowDebuff2"]
 [editable path="Water"]
-[editable path="DebuffEnemy"]

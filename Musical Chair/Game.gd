@@ -18,6 +18,7 @@ var game_state = "music_playing"
 var current_level
 var chair_manager
 var current_music_player = null
+var active_debuffs = []
 
 # Define the wall tile ID
 var wall_tile_id = 2
@@ -31,6 +32,11 @@ func _ready():
 func initialize_level(level_path: String, randomize_chairs: bool, chair_timer_interval: float):
 	if current_level:
 		current_level.queue_free()
+	
+		for debuff in active_debuffs:
+			debuff.queue_free()
+		active_debuffs.clear()
+		
 	current_level = load(level_path).instantiate()
 	add_child(current_level)
 
@@ -156,7 +162,7 @@ func _on_game_over_won():
 	elif current_level.scene_file_path == "res://level_2.tscn":
 		change_levels("res://level_3.tscn")
 	else:
-		change_levels("res://level_1.tscn")
+		change_levels("res://MainMenu.tscn")
 
 func _on_stuck_timer_timeout():
 	if player.chair_occupied:
@@ -169,3 +175,6 @@ func _on_stuck_timer_timeout():
 		if not all_chairs_occupied:
 			print("Enemies are stuck, moving to the next level.")
 			_on_game_over_won()  # Simulate game won if enemies are stuck and player is on chair
+
+func add_debuff(debuff):
+	active_debuffs.append(debuff)

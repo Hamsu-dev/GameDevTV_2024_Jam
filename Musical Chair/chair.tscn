@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmh12rddm42l8"]
+[gd_scene load_steps=6 format=3 uid="uid://dmh12rddm42l8"]
 
 [ext_resource type="Script" path="res://Chair.gd" id="1_r0deh"]
+[ext_resource type="Shader" path="res://rainbow.gdshader" id="2_8crns"]
 [ext_resource type="Texture2D" uid="uid://brk2xigign8of" path="res://chair_asset.png" id="2_exvsm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rx3fq"]
+shader = ExtResource("2_8crns")
+shader_parameter/strength = 0.5
+shader_parameter/speed = 0.5
+shader_parameter/angle = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_33xto"]
 
@@ -11,12 +18,19 @@ collision_layer = 8
 collision_mask = 7
 script = ExtResource("1_r0deh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_33xto")
+[node name="TextureRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_rx3fq")
+offset_left = -6.0
+offset_top = -17.0
+offset_right = 6.0
+offset_bottom = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -6)
 texture = ExtResource("2_exvsm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_33xto")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
