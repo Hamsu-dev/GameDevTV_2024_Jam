@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cae72cvsbwumh"]
+[gd_scene load_steps=8 format=3 uid="uid://cae72cvsbwumh"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1_sofab"]
 [ext_resource type="Shader" path="res://MainMenu.gdshader" id="4_d65f7"]
 [ext_resource type="PackedScene" uid="uid://crh1uaffk3dmu" path="res://player.tscn" id="4_nvw6d"]
+[ext_resource type="AudioStream" uid="uid://b67nnvmbabwm3" path="res://Szymat - LwaitforitD.mp3" id="4_r83g7"]
+[ext_resource type="AudioStream" uid="uid://o2qbcfp0xig7" path="res://Juhani Junkala [Retro Game Music Pack] Level 1.wav" id="5_kur3e"]
 [ext_resource type="AudioStream" uid="uid://d2ko434uqci12" path="res://Juhani Junkala [Retro Game Music Pack] Title Screen.wav" id="7_pg386"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_30wi0"]
@@ -35,14 +37,16 @@ zoom = Vector2(1, 1)
 stream = ExtResource("7_pg386")
 
 [node name="MusicLevel2" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_pg386")
+stream = ExtResource("4_r83g7")
 
 [node name="MusicLevel3" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_pg386")
+stream = ExtResource("5_kur3e")
 
 [node name="ChairTimer" type="Timer" parent="."]
 
 [node name="StuckTimer" type="Timer" parent="."]
+
+[node name="MusicStopTimer" type="Timer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -54,5 +58,6 @@ offset_bottom = 4.0
 
 [connection signal="timeout" from="ChairTimer" to="." method="_on_chair_timer_timeout"]
 [connection signal="timeout" from="StuckTimer" to="." method="_on_stuck_timer_timeout"]
+[connection signal="timeout" from="MusicStopTimer" to="." method="_on_music_stop_timer_timeout"]
 
 [editable path="Player"]

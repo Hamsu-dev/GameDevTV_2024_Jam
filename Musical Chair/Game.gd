@@ -4,12 +4,17 @@ extends Node2D
 @export var max_chair_distance: int = 150  # Maximum teleportation range
 @export var stuck_check_interval: float = 5.0  # Interval to check if the enemies are stuck
 
+@export var level_1_music_stop_time: float = 15.0  # Stop time for level 1 music
+@export var level_2_music_stop_time: float = 20.0  # Stop time for level 2 music
+@export var level_3_music_stop_time: float = 25.0  # Stop time for level 3 music
+
 @onready var player = $Player
 @onready var chair_timer = $ChairTimer
 @onready var music_level_1 = $MusicLevel1
 @onready var music_level_2 = $MusicLevel2
 @onready var music_level_3 = $MusicLevel3
 @onready var stuck_timer = $StuckTimer
+@onready var music_stop_timer = $MusicStopTimer
 
 var play_area_size: Vector2
 var play_area_position: Vector2
@@ -32,9 +37,9 @@ func initialize_level(level_path: String, randomize_chairs: bool, chair_timer_in
 	if current_level:
 		current_level.queue_free()
 	
-		for debuff in active_debuffs:
-			debuff.queue_free()
-		active_debuffs.clear()
+	for debuff in active_debuffs:
+		debuff.queue_free()
+	active_debuffs.clear()
 	
 	current_level = load(level_path).instantiate()
 	add_child(current_level)
@@ -61,16 +66,22 @@ func start_music(level_path: String, randomize_chairs: bool, chair_timer_interva
 		current_music_player.stop()
 		current_music_player.finished.disconnect(_on_audio_stream_player_finished)
 
+	var stop_time = 0.0
+
 	if level_path == "res://level_1.tscn":
 		current_music_player = music_level_1
+		stop_time = level_1_music_stop_time
 	elif level_path == "res://level_2.tscn":
 		current_music_player = music_level_2
+		stop_time = level_2_music_stop_time
 	elif level_path == "res://level_3.tscn":
 		current_music_player = music_level_3
+		stop_time = level_3_music_stop_time
 
 	if current_music_player:
 		current_music_player.finished.connect(_on_audio_stream_player_finished)
 		current_music_player.play()
+		music_stop_timer.start(stop_time)  # Start the timer with the stop time
 
 	game_state = "music_playing"
 	if randomize_chairs:
@@ -80,6 +91,11 @@ func start_music(level_path: String, randomize_chairs: bool, chair_timer_interva
 		chair.collision_shape.disabled = true
 	player.chair_occupied = false
 	print("Music playing! Chairs are not accessible yet.")
+
+func _on_music_stop_timer_timeout():
+	if current_music_player:
+		current_music_player.stop()
+		_on_audio_stream_player_finished()
 
 func _on_audio_stream_player_finished():
 	game_state = "music_stopped"

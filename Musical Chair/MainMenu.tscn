@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://ci74731xnwkue" path="res://RACCOONSPRITESHEET.png" id="11_wdbxa"]
 [ext_resource type="Texture2D" uid="uid://cfpk7ghy3mxgq" path="res://UI_Flat_Button_Medium_Release_02a4.png" id="12_0ay4l"]
 [ext_resource type="Texture2D" uid="uid://kh2mdmj67jof" path="res://UI_Flat_Button_Medium_Press_02a4.png" id="12_a1b4d"]
-[ext_resource type="AudioStream" uid="uid://blx5a5hk6mipv" path="res://Juhani Junkala [Retro Game Music Pack] Level 3.wav" id="15_mpw0k"]
+[ext_resource type="AudioStream" uid="uid://b67nnvmbabwm3" path="res://Szymat - LwaitforitD.mp3" id="15_m4ehf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1ckx"]
 atlas = ExtResource("9_sna4m")
@@ -323,7 +323,7 @@ texture_pressed = ExtResource("12_0ay4l")
 texture_hover = ExtResource("12_a1b4d")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("15_mpw0k")
+stream = ExtResource("15_m4ehf")
 autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Discord" to="." method="_on_discord_pressed"]
