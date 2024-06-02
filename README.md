@@ -1,5 +1,5 @@
 # Last Musical Chair
-## A thrilling blend of action and strategy in a whimsical world.
+## Find a chair when the music stops!
 
 ---
 
@@ -18,11 +18,9 @@ Step into the whimsical world of "Last Musical Chair," a thrilling blend of acti
 <table>
   <tr>
     <td><img src="https://cdn.discordapp.com/attachments/1238064462628519977/1246737066063298610/ss_LMC.png?ex=665d79df&is=665c285f&hm=0bfa9b98e109c2e900f61baf82081928249931ad26444c876e4cf5b4b833476a&" alt="Level 1" width="300"/></td>
-    <td><img src="https://cdn.discordapp.com/attachments/1238064462628519977/1246737066063298610/ss_LMC.png?ex=665d79df&is=665c285f&hm=0bfa9b98e109c2e900f61baf82081928249931ad26444c876e4cf5b4b833476a&" alt="Level 2" width="300"/></td>
-    <td><img src="https://cdn.discordapp.com/attachments/1238064462628519977/1246737066063298610/ss_LMC.png?ex=665d79df&is=665c285f&hm=0bfa9b98e109c2e900f61baf82081928249931ad26444c876e4cf5b4b833476a&" alt="Level 3" width="300"/></td>
+    <td><img src="https://cdn.discordapp.com/attachments/1238064462628519977/1246737066293989527/ss_LMC2.png?ex=665d79df&is=665c285f&hm=14c2d1b556e6f91446d5efdd025bbd212593eecdebfcbe004e623879c8c8f372&" alt="Level 2" width="300"/></td>
   </tr>
   <tr>
-    <td align="center">Level 1</td>
     <td align="center">Level 2</td>
     <td align="center">Level 3</td>
   </tr>
